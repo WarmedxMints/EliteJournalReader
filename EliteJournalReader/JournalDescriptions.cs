@@ -245,7 +245,7 @@ namespace EliteJournalReader
     {
         None,
 
-        Unknown,     
+        Unknown,
 
         [Description("No atmosphere")]
         NoAtmosphere,
@@ -259,6 +259,9 @@ namespace EliteJournalReader
         Ammonia,
 
         Water,
+
+        [Description("EarthLike")]
+        EarthLike,
 
         [Description("Carbon dioxide")]
         CarbonDioxide,

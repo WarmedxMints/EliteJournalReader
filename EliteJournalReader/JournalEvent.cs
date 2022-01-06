@@ -41,6 +41,7 @@ namespace EliteJournalReader
             eventArgs.OriginalEvent = evt;
             eventArgs.Timestamp = DateTime.Parse(evt.Value<string>("timestamp"),
                 CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal);
+            eventArgs.EliteTimeString = evt.Value<string>("timestamp");
 
 #if DEBUG
             Type argsType = typeof(TJournalEventArgs);
