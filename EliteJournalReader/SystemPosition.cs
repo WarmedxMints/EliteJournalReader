@@ -12,7 +12,7 @@ namespace EliteJournalReader
     {
         public double X, Y, Z;
 
-        public bool IsZero() => Math.Abs(X) <= 0.001 && Math.Abs(Y) <= 0.001 && Math.Abs(Z) <= 0.001;
+        public bool IsZero() => Math.Abs(X) <= 0.01 && Math.Abs(Y) <= 0.01 && Math.Abs(Z) <= 0.01;
 
         public override bool Equals(object obj) => obj is SystemPosition that && Equals(that);
 
