@@ -1,9 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 
 namespace EliteJournalReader.Events
 {
@@ -13,6 +8,7 @@ namespace EliteJournalReader.Events
 
         public class SellMicroResourcesEventArgs : JournalEventArgs
         {
+            public int TotalCount { get; set; }
             public List<MicroResource> MicroResources { get; set; }
             public int Price { get; set; }
             public long MarketID { get; set; }

@@ -1,10 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
-
 namespace EliteJournalReader.Events
 {
     //When Written: when buying a module in outfitting
@@ -31,6 +24,8 @@ namespace EliteJournalReader.Events
             public long ShipID { get; set; }
             public string SellItem { get; set; }
             public string SellItem_Localised { get; set; }
+            public string StoredItem { get; set; }
+            public string StoredItem_Localised { get; set; }
             public int? SellPrice { get; set; }
         }
     }

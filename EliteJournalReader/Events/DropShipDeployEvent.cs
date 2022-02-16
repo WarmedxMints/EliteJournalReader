@@ -1,15 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
-
 namespace EliteJournalReader.Events
 {
     public class DropShipDeployEvent : JournalEvent<DropShipDeployEvent.DropShipDeployEventArgs>
     {
-        public DropShipDeployEvent() : base("DropShipDeploy") { }
+        public DropShipDeployEvent() : base("DropshipDeploy") { }
 
         public class DropShipDeployEventArgs : JournalEventArgs
         {

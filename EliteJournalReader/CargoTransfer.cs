@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace EliteJournalReader
 {
-    public class CargoTransfer
+    public struct CargoTransferInfo
     {
         public string Type { get; set; }
-        public long Count { get; set; }
+        public int Count { get; set; }
         public string Direction { get; set; }
     }
 }
+

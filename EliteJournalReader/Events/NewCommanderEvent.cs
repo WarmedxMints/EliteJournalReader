@@ -1,10 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
-
 namespace EliteJournalReader.Events
 {
     //When written: Creating a new commander
@@ -17,6 +10,7 @@ namespace EliteJournalReader.Events
 
         public class NewCommanderEventArgs : JournalEventArgs
         {
+            public string FID { get; set; }
             public string Name { get; set; }
             public string Package { get; set; }
         }

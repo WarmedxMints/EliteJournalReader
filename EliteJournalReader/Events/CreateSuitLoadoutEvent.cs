@@ -1,9 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 
 namespace EliteJournalReader.Events
 {
@@ -18,7 +13,7 @@ namespace EliteJournalReader.Events
             public long LoadoutID { get; set; }
             public string LoadoutName { get; set; }
             public List<SuitModule> Modules { get; set; }
-            public string[] SuitMods;
+            public string[] SuitMods { get; set; }
         }
     }
 }

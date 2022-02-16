@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 
 namespace EliteJournalReader.Events
 {
@@ -86,8 +81,24 @@ namespace EliteJournalReader.Events
             public int? Donated { get; set; }
             public string[] PermitsAwarded { get; set; }
             public CommodityRewardItem[] CommodityReward { get; set; }
-            public MaterialRewardItem[] MaterialReward { get; set; }
+            public MaterialRewardItem[] MaterialsReward { get; set; }
             public FactionEffectsDesc[] FactionEffects { get; set; }
+            public string DestinationSystem { get; set; }
+            public string DestinationStation { get; set; }
+            public string NewDestinationStation { get; set; }
+            public string NewDestinationSystem { get; set; }
+            public int? KillCount { get; set; }
+
+            public override string ToString()
+            {
+                StringBuilder sb = new StringBuilder();
+
+                sb.AppendLine($"Time   :{Timestamp}");
+                sb.AppendLine($"Giver   :{Faction}");
+                sb.AppendLine($"Target :{TargetFaction}");
+
+                return sb.ToString();
+            }
         }
     }
 }

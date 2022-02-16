@@ -1,10 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
-
 namespace EliteJournalReader.Events
 {
     //When written: at startup
@@ -268,24 +261,24 @@ namespace EliteJournalReader.Events
 
         public struct FLEETCARRIER
         {
-            public int FLEETCARRIER_EXPORT_TOTAL { get; set; }
-            public int FLEETCARRIER_IMPORT_TOTAL { get; set; }
-            public int FLEETCARRIER_TRADEPROFIT_TOTAL { get; set; }
-            public int FLEETCARRIER_TRADESPEND_TOTAL { get; set; }
-            public int FLEETCARRIER_STOLENPROFIT_TOTAL { get; set; }
-            public int FLEETCARRIER_STOLENSPEND_TOTAL { get; set; }
-            public double FLEETCARRIER_DISTANCE_TRAVELLED { get; set; }
-            public int FLEETCARRIER_TOTAL_JUMPS { get; set; }
-            public int FLEETCARRIER_SHIPYARD_SOLD { get; set; }
-            public int FLEETCARRIER_SHIPYARD_PROFIT { get; set; }
-            public int FLEETCARRIER_OUTFITTING_SOLD { get; set; }
-            public int FLEETCARRIER_OUTFITTING_PROFIT { get; set; }
-            public int FLEETCARRIER_REARM_TOTAL { get; set; }
-            public int FLEETCARRIER_REFUEL_TOTAL { get; set; }
-            public int FLEETCARRIER_REFUEL_PROFIT { get; set; }
-            public int FLEETCARRIER_REPAIRS_TOTAL { get; set; }
-            public int FLEETCARRIER_VOUCHERS_REDEEMED { get; set; }
-            public int FLEETCARRIER_VOUCHERS_PROFIT { get; set; }
+            public long FLEETCARRIER_EXPORT_TOTAL { get; set; }
+            public long FLEETCARRIER_IMPORT_TOTAL { get; set; }
+            public long FLEETCARRIER_TRADEPROFIT_TOTAL { get; set; }
+            public long FLEETCARRIER_TRADESPEND_TOTAL { get; set; }
+            public long FLEETCARRIER_STOLENPROFIT_TOTAL { get; set; }
+            public long FLEETCARRIER_STOLENSPEND_TOTAL { get; set; }
+            public string FLEETCARRIER_DISTANCE_TRAVELLED { get; set; }
+            public long FLEETCARRIER_TOTAL_JUMPS { get; set; }
+            public long FLEETCARRIER_SHIPYARD_SOLD { get; set; }
+            public long FLEETCARRIER_SHIPYARD_PROFIT { get; set; }
+            public long FLEETCARRIER_OUTFITTING_SOLD { get; set; }
+            public long FLEETCARRIER_OUTFITTING_PROFIT { get; set; }
+            public long FLEETCARRIER_REARM_TOTAL { get; set; }
+            public long FLEETCARRIER_REFUEL_TOTAL { get; set; }
+            public long FLEETCARRIER_REFUEL_PROFIT { get; set; }
+            public long FLEETCARRIER_REPAIRS_TOTAL { get; set; }
+            public long FLEETCARRIER_VOUCHERS_REDEEMED { get; set; }
+            public long FLEETCARRIER_VOUCHERS_PROFIT { get; set; }
         }
 
         public struct Exobiology

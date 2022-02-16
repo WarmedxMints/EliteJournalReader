@@ -1,10 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
-
 namespace EliteJournalReader.Events
 {
     //This is written when crew receive wages
@@ -17,6 +10,7 @@ namespace EliteJournalReader.Events
 
         public class NpcCrewPaidWageEventArgs : JournalEventArgs
         {
+            public string NpcCrewName { get; set; }
             public long NpcCrewId { get; set; }
             public long Amount { get; set; }
         }

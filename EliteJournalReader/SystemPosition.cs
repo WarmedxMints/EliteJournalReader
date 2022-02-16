@@ -34,7 +34,7 @@ namespace EliteJournalReader
 
         public double[] ToArray() => new[] { X, Y, Z };
 
-        public override string ToString() => FormattableString.Invariant($"{X},{Y},{Z}");
+        public override string ToString() => FormattableString.Invariant($"{X:N2},{Y:N2},{Z:N2}");
 
         public static bool operator ==(SystemPosition left, SystemPosition right) => left.Equals(right);
 

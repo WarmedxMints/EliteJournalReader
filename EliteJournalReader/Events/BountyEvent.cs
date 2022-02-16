@@ -1,9 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 
 namespace EliteJournalReader.Events
 {
@@ -19,18 +15,32 @@ namespace EliteJournalReader.Events
 
         public class BountyEventArgs : JournalEventArgs
         {
-            public struct FactionReward
+            public class FactionReward
             {
-                public string Faction;
-                public int Reward;
+                public string Faction { get; set; }
+                public int Reward { get; set; }
             }
             public string Target { get; set; }
             public string Target_Localised { get; set; }
 
-            public FactionReward[] Rewards { get; set; }
+            public List<FactionReward> Rewards { get; set; }
             public string VictimFaction { get; set; }
+            public string VictimFaction_Localised { get; set; }
+            public int Reward { get; set; }
             public int TotalReward { get; set; }
             public int SharedWithOthers { get; set; } = 0;
+
+            public override string ToString()
+            {
+                StringBuilder sb = new StringBuilder();
+
+                sb.AppendLine($"Time   :{Timestamp}");
+                sb.AppendLine($"Target :{Target}");
+                sb.AppendLine($"Victim :{VictimFaction}");
+                sb.AppendLine($"Reward :{TotalReward}");
+
+                return sb.ToString();
+            }
         }
     }
 }

@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace EliteJournalReader.Events
 {
@@ -46,6 +40,7 @@ namespace EliteJournalReader.Events
         {
             public bool Taxi { get; set; }
             public bool Multicrew { get; set; }
+            public bool InSRV { get; set; }
             public double DistFromStarLS { get; set; }
             public string StarSystem { get; set; }
             public long SystemAddress { get; set; }
@@ -60,6 +55,7 @@ namespace EliteJournalReader.Events
             public BodyType BodyType { get; set; }
 
             public bool Docked { get; set; }
+            public bool OnFoot { get; set; }
             public double? Latitude { get; set; }
             public double? Longitude { get; set; }
 

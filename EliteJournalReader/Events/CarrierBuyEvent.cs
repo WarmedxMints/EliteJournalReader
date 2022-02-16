@@ -1,10 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
-
 namespace EliteJournalReader.Events
 {
     //When Written: Player has bought a fleet carrier
@@ -21,6 +14,7 @@ namespace EliteJournalReader.Events
         public class CarrierBuyEventArgs : JournalEventArgs
         {
             public long BoughtAtMarket { get; set; }
+            public long SystemAddress { get; set; }
             public long CarrierID { get; set; }
             public string Location { get; set; }
             public long Price { get; set; }

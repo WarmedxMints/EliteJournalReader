@@ -1,10 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
-
 namespace EliteJournalReader.Events
 {
     //When written: when using the Technology Broker to unlock new purchasable technology
@@ -31,6 +24,7 @@ namespace EliteJournalReader.Events
             public string ItemUnlocked_Localised { get; set; }
             public Commodity[] Commodities { get; set; }
             public Material[] Materials { get; set; }
+            public Item[] ItemsUnlocked { get; set; }
         }
     }
 }

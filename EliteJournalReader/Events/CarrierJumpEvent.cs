@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace EliteJournalReader.Events
 {
@@ -58,6 +52,8 @@ namespace EliteJournalReader.Events
             public BodyType BodyType { get; set; }
 
             public bool Docked { get; set; }
+            public bool Taxi { get; set; }
+            public bool Multicrew { get; set; }
             public double? Latitude { get; set; }
             public double? Longitude { get; set; }
 
@@ -68,6 +64,8 @@ namespace EliteJournalReader.Events
             public string StationGovernment { get; set; }
             public string StationAllegiance { get; set; }
             public string[] StationServices { get; set; }
+            public string StationEconomy { get; set; }
+            public string StationEconomy_Localised { get; set; }
             public Economy[] StationEconomies { get; set; }
 
             public Faction SystemFaction { get; set; }

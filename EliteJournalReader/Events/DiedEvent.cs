@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
 namespace EliteJournalReader.Events
@@ -21,6 +16,9 @@ namespace EliteJournalReader.Events
 
         public class DiedEventArgs : JournalEventArgs
         {
+            public string KillerName { get; set; }
+            public string KillerShip { get; set; }
+            public string KillerRank { get; set; }
             public struct Killer
             {
                 public string Name;

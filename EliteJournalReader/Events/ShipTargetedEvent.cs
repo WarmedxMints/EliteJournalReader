@@ -1,10 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace EliteJournalReader.Events
 {
@@ -66,6 +60,7 @@ namespace EliteJournalReader.Events
 
             public double SubSystemHealth { get; set; }
             public string Power { get; set; }
+            public string SquadronID { get; set; }
         }
     }
 }

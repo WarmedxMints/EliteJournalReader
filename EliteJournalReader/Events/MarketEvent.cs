@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -37,7 +34,9 @@ namespace EliteJournalReader.Events
         public class MarketEventArgs : JournalEventArgs
         {
             public string StationName { get; set; }
+            public string StationType { get; set; }
             public long MarketID { get; set; }
+            public string CarrierDockingAccess { get; set; }
             public string StarSystem { get; set; }
 
             public MarketInfo ReadMarketInfo(string journalPath)

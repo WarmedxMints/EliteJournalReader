@@ -1,10 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
-
 namespace EliteJournalReader.Events
 {
     //When written: when the player’s rank increases
@@ -23,6 +16,10 @@ namespace EliteJournalReader.Events
             public TradeRank? Trade { get; set; }
             public ExplorationRank? Explore { get; set; }
             public MercenaryRank? Mercenary { get; set; }
+            /// <summary>
+            /// From Beta Ody?
+            /// </summary>
+            public MercenaryRank? Soldier { get; set; }
             public ExobiologistRank? Exobiologist { get; set; }
             public CQCRank? CQC { get; set; }
             public FederationRank? Federation { get; set; }

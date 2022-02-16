@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 
 namespace EliteJournalReader.Events
 {
@@ -23,11 +18,22 @@ namespace EliteJournalReader.Events
         public class MissionRedirectedEventArgs : JournalEventArgs
         {
             public long MissionID { get; set; }
+            public string Name { get; set; }
             public string MissionName { get; set; }
             public string NewDestinationStation { get; set; }
             public string OldDestinationStation { get; set; }
             public string NewDestinationSystem { get; set; }
             public string OldDestinationSystem { get; set; }
+
+            public override string ToString()
+            {
+                StringBuilder sb = new StringBuilder();
+
+                sb.AppendLine($"Time   :{Timestamp}");
+                sb.AppendLine($"Name  :{Name}");
+
+                return sb.ToString();
+            }
         }
     }
 }

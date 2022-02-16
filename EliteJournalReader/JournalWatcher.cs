@@ -1,9 +1,9 @@
 ﻿using EliteJournalReader.Events;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -24,7 +24,7 @@ namespace EliteJournalReader
         public const int UPDATE_INTERVAL_MILLISECONDS = 500;
 
         public event EventHandler<MessageReceivedEventArgs> MessageReceived;
-        
+
         /// <summary>
         ///     The default filter
         /// </summary>
@@ -67,7 +67,19 @@ namespace EliteJournalReader
         /// </summary>
         private static readonly Dictionary<Type, JournalEvent> journalEvents = new Dictionary<Type, JournalEvent>();
 
-        public bool IsLive { get; protected set; }
+        private bool isLive;
+        public bool IsLive
+        {
+            get
+            {
+                if (ReadingHistory)
+                {
+                    return false;
+                }
+                return isLive;
+            }
+            protected set => isLive = value;
+        }
 
         /// <summary>
         /// Use reflection to generate a list of event handlers. This allows for a dynamic list of handler classes, one for each type
@@ -94,7 +106,9 @@ namespace EliteJournalReader
                     {
                         journalEvents[handler.GetType()] = handler;
                         foreach (string eventName in handler.EventNames)
+                        {
                             journalEventsByName[eventName] = handler;
+                        }
                     }
                     catch (Exception e)
                     {
@@ -182,13 +196,17 @@ namespace EliteJournalReader
             {
                 var journals = Directory.GetFiles(Path, DefaultFilter).OrderByDescending(f => GetFileCreationDate(f));
                 if (!journals.Any())
+                {
                     return 0; // there's nothing
+                }
 
                 // return the list until we find one with a part number 01.
                 int partNr = 1;
                 var match = journalFileRegex.Match(journals.First());
                 if (match.Success)
+                {
                     int.TryParse(match.Groups["part"].Value, out partNr);
+                }
 
                 var previousFiles = journals.Take(partNr).Reverse();
 
@@ -211,6 +229,45 @@ namespace EliteJournalReader
             }
 
             return offset;
+        }
+
+        public bool ReadingHistory { get; private set; }
+        public void ParseHistory(IProgress<string> progress)
+        {
+            if (progress is null)
+            {
+                throw new ArgumentNullException(nameof(progress));
+            }
+
+            ReadingHistory = true;
+            try
+            {
+                var journals = Directory.GetFiles(Path, DefaultFilter).OrderBy(x => GetFileCreationDate(x));
+                if (!journals.Any())
+                {
+                    return; // there's nothing
+                }
+
+                // now process each journal
+                foreach (string filename in journals)
+                {
+                    var journalFile = System.IO.Path.Combine(Path, filename);
+                    using (var reader = new StreamReader(new FileStream(journalFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)))
+                    {
+                        string[] fName = filename.Split('\\');
+                        //Trace.TraceInformation($"Journal: now reading previous entries from {filename}.");
+                        progress.Report($"{fName[fName.Length - 1]}");
+                        _ = ParseData(reader, 0);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Trace.TraceError($"Error while parsing previous data from {LatestJournalFile}: " + e.Message);
+                return;
+            }
+
+            ReadingHistory = false;
         }
 
         private DateTime GetFileCreationDate(string path)
@@ -253,15 +310,17 @@ namespace EliteJournalReader
             }
 
             if (cancellationTokenSource != null)
+            {
                 cancellationTokenSource.Cancel(false); // should not happen, but let's be safe, okay?
+            }
 
             cancellationTokenSource = new CancellationTokenSource();
 
             long offset = 0;
 
             // before we start watching, rerun all events up until now (including any previous parts of this game session)
-            await Task.Run(() =>
-            {
+
+            await Task.Run(() => {
                 offset = ProcessPreviousJournals();
 
                 // because we might just have read an old log file, make sure we don't miss the new one when it arrives
@@ -276,13 +335,14 @@ namespace EliteJournalReader
                     FireEvent("MagicMau.IsLiveEvent", new JObject(new JProperty("timestamp", DateTime.UtcNow)));
 
                     if (!string.IsNullOrEmpty(LatestJournalFile))
+                    {
                         CheckForJournalUpdateAsync(LatestJournalFile, offset);
+                    }
                 }
 
                 EnableRaisingEvents = true;
             });
 
-            
         }
 
         public CargoEvent.CargoEventArgs ReadCargoJson()
@@ -290,12 +350,16 @@ namespace EliteJournalReader
             try
             {
                 string cargoPath = System.IO.Path.Combine(Path, "Cargo.json");
-                if (!File.Exists(cargoPath))
-                    return null;
 
-                string json = File.ReadAllText(cargoPath);
-                var obj = JObject.Parse(json);
-                var cargo = obj.ToObject<CargoEvent.CargoEventArgs>();
+                if (!File.Exists(cargoPath))
+                {
+                    return null;
+                }
+
+                string json = File.ReadAllText(cargoPath,Encoding.UTF8);
+
+                CargoEvent.CargoEventArgs cargo = JsonConvert.DeserializeObject<CargoEvent.CargoEventArgs>(json);
+
                 return cargo;
             }
             catch (Exception e)
@@ -311,17 +375,20 @@ namespace EliteJournalReader
         {
             // if we're not watching anything, let's see if there is a log available
             if (LatestJournalFile == null || e.Name != LatestJournalFile)
+            {
                 await UpdateLatestJournalFile();
+            }
         }
 
         internal void StartPollingForNewJournal()
         {
             if (isPollingForNewFile || cancellationTokenSource.IsCancellationRequested)
+            {
                 return; // we're already polling or no longer needed
+            }
 
             isPollingForNewFile = true;
-            Task.Run(async () =>
-            {
+            Task.Run(async () => {
                 while (isPollingForNewFile)
                 {
                     try
@@ -355,10 +422,14 @@ namespace EliteJournalReader
                 IsLive = false;
 
                 if (cancellationTokenSource != null)
+                {
                     cancellationTokenSource.Cancel();
+                }
 
                 if (journalThread != null)
+                {
                     journalThread.Join();
+                }
             }
             catch (Exception e)
             {
@@ -373,7 +444,9 @@ namespace EliteJournalReader
             journalThreadId++;
 
             if (journalCancellationTokenSource != null)
+            {
                 journalCancellationTokenSource.Cancel();
+            }
 
             if (journalThread != null && journalThread.IsAlive)
             {
@@ -395,8 +468,7 @@ namespace EliteJournalReader
             }
 
             journalCancellationTokenSource = new CancellationTokenSource();
-            journalThread = new Thread(state =>
-            {
+            journalThread = new Thread(state => {
                 // keep a current ID for this thread. If the ID changes, we are watching a different file, and this thread can exit.
                 var tuple = (Tuple<int, long, string, CancellationToken>)state;
                 int id = tuple.Item1;
@@ -417,11 +489,15 @@ namespace EliteJournalReader
                             // check for updates every 0.5 seconds
                             // if we are no longer watching (this thread), stop.
                             if (!Pause() || id != journalThreadId)
+                            {
                                 return;
+                            }
 
                             // if the file size has not changed, idle
                             if (reader.BaseStream.Length <= offset)
+                            {
                                 continue;
+                            }
 
                             // we found new data, so this is definitely not a stale file
                             isPollingForNewFile = false;
@@ -504,7 +580,9 @@ namespace EliteJournalReader
 
             // parse each line
             foreach (string line in lines)
+            {
                 Parse(line);
+            }
         }
 
         private bool Pause()
@@ -566,22 +644,30 @@ namespace EliteJournalReader
         protected void Parse(string line)
         {
             if (string.IsNullOrEmpty(line))
+            {
                 return;
+            }
 
             try
             {
                 var evt = JObject.Parse(line);
                 string eventType = evt.Value<string>("event");
                 if (string.IsNullOrEmpty(eventType))
+                {
                     return; // no event, nothing to do
+                }
 
 #if DEBUG
                 if (IsLive)
+                {
                     Trace.TraceInformation($"Journal - firing event {eventType} @ {evt["timestamp"]?.Value<string>()}\r\n\t{line}");
+                }
 #endif
                 var journalEventArgs = FireEvent(eventType, evt);
                 if (journalEventArgs != null)
+                {
                     MessageReceived?.Invoke(this, new MessageReceivedEventArgs(journalEventArgs, eventType));
+                }
             }
             catch (Exception e)
             {
@@ -598,10 +684,13 @@ namespace EliteJournalReader
         private JournalEventArgs FireEvent(string eventType, JObject evt)
         {
             if (journalEventsByName.TryGetValue(eventType, out var handler))
+            {
                 return handler.FireEvent(this, evt);
+            }
             else
+            {
                 Trace.TraceWarning("No event handler registered for journal event of type: " + eventType);
-
+            }
             return null;
         }
 
@@ -611,5 +700,5 @@ namespace EliteJournalReader
             return journalEvents.ContainsKey(type) ? journalEvents[type] as TJournalEvent : null;
         }
     }
-    
+
 }

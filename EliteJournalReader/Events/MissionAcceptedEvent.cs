@@ -1,11 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
 
 namespace EliteJournalReader.Events
 {
@@ -61,6 +56,17 @@ namespace EliteJournalReader.Events
             public string Donation { get; set; }
             public int? Donated { get; set; }
 
+            public override string ToString()
+            {
+                StringBuilder sb = new StringBuilder();
+
+                sb.AppendLine($"Time   :{Timestamp}");
+                sb.AppendLine($"Giver  :{Faction}");
+                sb.AppendLine($"Victim :{TargetFaction}");
+                sb.AppendLine($"Victim :{KillCount}");
+
+                return sb.ToString();
+            }
         }
     }
 }

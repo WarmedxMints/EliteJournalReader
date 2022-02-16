@@ -1,15 +1,10 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 
 namespace EliteJournalReader.Events
 {
-    public class BackpackMaterialsEvent : JournalEvent<BackpackMaterialsEvent.BackpackMaterialsEventArgs>
+    public class BackPackMaterialsEvent : JournalEvent<BackPackMaterialsEvent.BackpackMaterialsEventArgs>
     {
-        public BackpackMaterialsEvent() : base("BackpackMaterials") { }
+        public BackPackMaterialsEvent() : base("BackPackMaterials") { }
 
         public class BackpackMaterialsEventArgs : JournalEventArgs
         {

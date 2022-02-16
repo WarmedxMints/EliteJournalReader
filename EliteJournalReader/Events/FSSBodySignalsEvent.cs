@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EliteJournalReader.Events
+﻿namespace EliteJournalReader.Events
 {
     public class FSSBodySignalsEvent : JournalEvent<FSSBodySignalsEvent.FSSBodySignalsEventArgs>
     {

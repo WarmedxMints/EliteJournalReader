@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EliteJournalReader.Events
+﻿namespace EliteJournalReader.Events
 {
     public class ScanBaryCentreEvent : JournalEvent<ScanBaryCentreEvent.ScanBaryCentreEventArgs>
     {

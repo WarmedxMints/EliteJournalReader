@@ -1,14 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
-
 namespace EliteJournalReader.Events
 {
     public class EmbarkEvent : JournalEvent<EmbarkEvent.EmbarkEventArgs>
     {
+        public class CrewInfo
+        {
+            public string Name { get; set; }
+            public string Role { get; set; }
+        }
+
         public EmbarkEvent() : base("Embark") { }
 
         public class EmbarkEventArgs : JournalEventArgs
@@ -26,6 +25,7 @@ namespace EliteJournalReader.Events
             public string StationName { get; set; }
             public string StationType { get; set; }
             public long MarketID { get; set; }
+            public CrewInfo[] Crew { get; set; }
         }
     }
 }
