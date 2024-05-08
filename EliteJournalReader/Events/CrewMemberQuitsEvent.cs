@@ -11,6 +11,7 @@ namespace EliteJournalReader.Events
         {
             public string Crew { get; set; }
             public long CrewID { get; set; }
+            public bool Telepresence { get; set; }
         }
     }
 }

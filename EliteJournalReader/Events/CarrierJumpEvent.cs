@@ -1,5 +1,5 @@
-using System.Linq;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace EliteJournalReader.Events
 {
@@ -50,9 +50,10 @@ namespace EliteJournalReader.Events
 
             [JsonConverter(typeof(ExtendedStringEnumConverter<BodyType>))]
             public BodyType BodyType { get; set; }
-
+            public ThargoidWarData ThargoidWar { get; set; }
             public bool Docked { get; set; }
             public bool Taxi { get; set; }
+            public bool OnFoot { get; set; }
             public bool Multicrew { get; set; }
             public double? Latitude { get; set; }
             public double? Longitude { get; set; }

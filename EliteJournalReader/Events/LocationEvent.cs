@@ -1,5 +1,5 @@
-using System.Linq;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace EliteJournalReader.Events
 {
@@ -44,6 +44,7 @@ namespace EliteJournalReader.Events
             public double DistFromStarLS { get; set; }
             public string StarSystem { get; set; }
             public long SystemAddress { get; set; }
+            public ThargoidWarData ThargoidWar { get; set; }
 
             [JsonConverter(typeof(SystemPositionConverter))]
             public SystemPosition StarPos { get; set; }

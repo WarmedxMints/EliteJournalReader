@@ -2,15 +2,9 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace EliteJournalReader
 {
@@ -85,7 +79,7 @@ namespace EliteJournalReader
 
             if (!Directory.Exists(Path))
             {
-                Trace.TraceError($"Cannot watch non-existing folder {Path}.");
+                //Trace.TraceError($"Cannot watch non-existing folder {Path}.");
                 return;
             }
 
@@ -121,7 +115,7 @@ namespace EliteJournalReader
             }
             catch (Exception e)
             {
-                Trace.TraceError($"Error while stopping Status watcher: {e.Message}");
+                //Trace.TraceError($"Error while stopping Status watcher: {e.Message}");
                 Trace.TraceInformation(e.StackTrace);
             }
         }
@@ -135,11 +129,10 @@ namespace EliteJournalReader
             {
                 Thread.Sleep(50); // give it a wee bit
                 var streamReader = new StreamReader(new FileStream(fullPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
+#pragma warning disable IDE0063 // Use simple 'using' statement
                 using (var jsonTextReader = new JsonTextReader(streamReader))
                 {
-                    var evt = JToken.ReadFrom(jsonTextReader).ToObject<StatusFileEvent>();
-                    if (evt == null)
-                        throw new ArgumentNullException($"Unexpected empty status.json file");
+                    var evt = JToken.ReadFrom(jsonTextReader).ToObject<StatusFileEvent>() ?? throw new ArgumentNullException($"Unexpected empty status.json file");
 
                     // only fire the event if it's new data
                     if (evt.Timestamp > lastTimestamp)
@@ -148,6 +141,7 @@ namespace EliteJournalReader
                         FireStatusUpdatedEvent(evt);
                     }
                 }
+#pragma warning restore IDE0063 // Use simple 'using' statement
             }
             catch (IOException ioe) { HandleUpdateStatusException(ioe, fullPath, attempt); }
             catch (JsonException je) { HandleUpdateStatusException(je, fullPath, attempt); }

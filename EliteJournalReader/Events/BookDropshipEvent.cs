@@ -11,6 +11,8 @@ namespace EliteJournalReader.Events
             public string DestinationSystem { get; set; }
 
             public string DestinationLocation { get; set; }
+
+            public bool Retreat { get; set; }
         }
     }
 }

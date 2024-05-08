@@ -12,6 +12,7 @@ namespace EliteJournalReader.Events
         {
             public string Crew { get; set; }
             public bool OnCrime { get; set; }
+            public bool Telepresence { get; set; }
         }
     }
 }

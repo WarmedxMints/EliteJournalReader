@@ -76,7 +76,21 @@ namespace EliteJournalReader.Events
 
             private static int ReadInt(JsonReader reader) => reader.Read() && reader.TokenType == JsonToken.Integer ? Convert.ToInt32(reader.Value) : 0;
 
-            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) => throw new NotImplementedException();
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            {
+                if (value is (int System, int Engine, int Weapons))
+                {
+                    writer.WriteValue((System, Engine, Weapons));
+                }
+
+                //writer.WritePropertyName("Pips");
+                //writer.WriteStartArray();
+                //writer.WriteValue(System);
+                //writer.WriteValue(Engine);
+                //writer.WriteValue(Weapons);
+                //writer.WriteEnd();
+                //writer.WriteEndObject();
+            }
         }
     }
 

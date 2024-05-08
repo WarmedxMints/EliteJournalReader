@@ -54,7 +54,7 @@ namespace EliteJournalReader.Events
                 public string Name;
                 public string Bonus;
             }
-            
+
             public CurrentGoal[] CurrentGoals { get; set; }
         }
     }

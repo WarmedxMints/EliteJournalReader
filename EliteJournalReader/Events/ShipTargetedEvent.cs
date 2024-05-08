@@ -39,9 +39,9 @@ namespace EliteJournalReader.Events
 
             public int ScanStage { get; set; }
 
-            public string PilotName { get; set; }
+            public string PilotName { get; set; } = string.Empty;
 
-            public string PilotName_Localised { get; set; }
+            public string PilotName_Localised { get; set; } = string.Empty;
 
             [JsonConverter(typeof(ExtendedStringEnumConverter<CombatRank>))]
             public CombatRank PilotRank { get; set; }

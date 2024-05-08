@@ -1,9 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;netstandard2.0;netstandard2.1;net46;net47;net472;net48;net50</TargetFrameworks>
+    <TargetFrameworks>net7.0</TargetFrameworks>
     <Version>3.7.4</Version>
-
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <SignAssembly>false</SignAssembly>
     <Copyright>Copyright © Maurits Elbers (@MagicMau) 2015-2021. Elite: Dangerous and related material is © Frontier Developments plc</Copyright>
@@ -12,12 +10,21 @@
     <AssemblyVersion>3.7.3.1</AssemblyVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>MagicMau</Authors>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
-
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net50|AnyCPU'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net50|AnyCPU'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net60|AnyCPU'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net60|AnyCPU'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
-
-
 </Project>

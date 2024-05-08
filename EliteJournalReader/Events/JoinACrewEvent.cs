@@ -10,6 +10,7 @@ namespace EliteJournalReader.Events
         public class JoinACrewEventArgs : JournalEventArgs
         {
             public string Captain { get; set; }
+            public bool Telepresence { get; set; }
         }
     }
 }

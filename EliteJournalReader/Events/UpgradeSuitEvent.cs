@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EliteJournalReader.Events
 {
     public class UpgradeSuitEvent : JournalEvent<UpgradeSuitEvent.UpgradeSuitEventArgs>
@@ -11,6 +13,7 @@ namespace EliteJournalReader.Events
             public long SuitID { get; set; }
             public int Class { get; set; }
             public int Cost { get; set; }
+            public List<Resource> Resources { get; set; }
         }
     }
 }

@@ -286,9 +286,9 @@ namespace EliteJournalReader.Events
             public int Organic_Genus_Encountered { get; set; }
             public int Organic_Species_Encountered { get; set; }
             public int Organic_Variant_Encountered { get; set; }
-            public int Organic_Data_Profits { get; set; }
+            public ulong Organic_Data_Profits { get; set; }
             public int Organic_Data { get; set; }
-            public int First_Logged_Profits { get; set; }
+            public ulong First_Logged_Profits { get; set; }
             public int First_Logged { get; set; }
             public int Organic_Systems { get; set; }
             public int Organic_Planets { get; set; }

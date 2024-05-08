@@ -10,6 +10,7 @@ namespace EliteJournalReader.Events
         public class MissionAbandonedEventArgs : JournalEventArgs
         {
             public string Name { get; set; }
+            public string LocalisedName { get; set; }
             public long MissionID { get; set; }
             public int Fine { get; set; }
         }

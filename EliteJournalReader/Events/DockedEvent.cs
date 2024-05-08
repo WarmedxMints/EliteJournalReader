@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EliteJournalReader.Events
 {
     //    When written: when landing at landing pad in a space station, outpost, or surface settlement
@@ -35,11 +37,11 @@ namespace EliteJournalReader.Events
             public string StationAllegiance { get; set; }
             public string StationEconomy { get; set; }
             public string StationEconomy_Localised { get; set; }
-            public Economy[] StationEconomies { get; set; }
+            public IReadOnlyList<Economy> StationEconomies { get; set; }
             public string StationGovernment { get; set; }
             public string StationGovernment_Localised { get; set; }
             public double? DistFromStarLS { get; set; }
-            public string[] StationServices { get; set; }
+            public IReadOnlyList<string> StationServices { get; set; }
             public bool Wanted { get; set; } = false;
             public bool ActiveFine { get; set; } = false;
             public LandingPads LandingPads { get; set; }

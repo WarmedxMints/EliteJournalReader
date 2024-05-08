@@ -55,7 +55,12 @@ namespace EliteJournalReader.Events
             public long ReserveBalance { get; set; }
             public long AvailableBalance { get; set; }
             public double ReservePercent { get; set; }
-            public double TaxRate { get; set; }
+            public double TaxRate_pioneersupplies { get; set; }
+            public double TaxRate_shipyard { get; set; }
+            public double TaxRate_rearm { get; set; }
+            public double TaxRate_outfitting { get; set; }
+            public double TaxRate_refuel { get; set; }
+            public double TaxRate_repair { get; set; }
         }
 
         public struct CarrierCrew

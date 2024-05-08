@@ -1,8 +1,8 @@
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace EliteJournalReader.Events
 {
@@ -300,9 +300,16 @@ namespace EliteJournalReader.Events
         public double OuterRad { get; set; }
     }
 
+    public enum ParentType
+    {
+        Null,
+        Ring,
+        Star,
+        Planet
+    }
     public struct BodyParent
     {
-        public string Type;
+        public ParentType Type;
         public long BodyID;
     }
 
@@ -326,7 +333,7 @@ namespace EliteJournalReader.Events
                         {
                             var bp = new BodyParent
                             {
-                                Type = prop.Name,
+                                Type = (ParentType)Enum.Parse(typeof(ParentType), prop.Name),
                                 BodyID = prop.Value.Value<int>()
                             };
                             bps.Add(bp);
@@ -337,6 +344,38 @@ namespace EliteJournalReader.Events
             return bps.ToArray();
         }
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) => throw new NotImplementedException();
+    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            if (value is not BodyParent[] parents)
+            {
+                return;
+            }
+
+            writer.WriteStartArray();
+            foreach (var parent in parents)
+            {
+                JObject.FromObject(parent).WriteTo(writer);
+            }
+
+            writer.WriteEndArray();
+            //writer.WriteStartObject();
+            //writer.WriteStartArray();
+            //writer.WritePropertyName("Parents");
+
+            //foreach (var parent in parents)
+            //{
+            //    writer.WriteStartObject();
+            //    //writer.WriteStartArray();
+            //    writer.WritePropertyName("BodyID");
+            //    writer.WriteValue(parent.BodyID);
+            //    writer.WritePropertyName("Type");
+            //    writer.WriteValue(parent.Type);
+            //    //writer.WriteEndArray();
+            //    writer.WriteEndObject();
+
+            //}
+            //
+            //writer.WriteEndObject();
+        }
     }
 }

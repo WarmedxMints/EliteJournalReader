@@ -12,7 +12,7 @@ namespace EliteJournalReader.Events
         public class SearchAndRescueEventArgs : JournalEventArgs
         {
             public long MarketID { get; set; }
-            public string Name { get; set; }            
+            public string Name { get; set; }
             public int Count { get; set; }
             public int Reward { get; set; }
         }

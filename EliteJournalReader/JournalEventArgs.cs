@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Globalization;
 
 namespace EliteJournalReader
 {
@@ -10,7 +9,7 @@ namespace EliteJournalReader
 
         public DateTime Timestamp { get; set; }
 
-        public string EliteTimeString { get; set; }
+        //public string EliteTimeString { get; set; }
         public JournalEventArgs()
         {
         }

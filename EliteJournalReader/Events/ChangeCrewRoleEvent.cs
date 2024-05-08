@@ -10,16 +10,7 @@ namespace EliteJournalReader.Events
         public class ChangeCrewRoleEventArgs : JournalEventArgs
         {
             public RoleType Role { get; set; }
-        }
-
-        public enum RoleType
-        {
-            Unknown,
-            Idle,
-            FireCon,
-            FighterCon,
-            Helm,
-            OnFoot
+            public bool Telepresence { get; set; }
         }
     }
 }

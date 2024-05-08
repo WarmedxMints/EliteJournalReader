@@ -1,10 +1,10 @@
-﻿using System;
-using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
-using System.IO;
+
+
 
 namespace EliteJournalReader
 {
@@ -20,6 +20,7 @@ namespace EliteJournalReader
         }
 
         internal abstract JournalEventArgs FireEvent(object sender, JObject evt);
+        internal abstract JournalEventArgs JsonToEvent(object sender, JObject evt);
     }
 
     public abstract class JournalEvent<TJournalEventArgs> : JournalEvent
@@ -42,7 +43,7 @@ namespace EliteJournalReader
             eventArgs.OriginalEvent = evt;
             eventArgs.Timestamp = DateTime.Parse(evt.Value<string>("timestamp"),
                 CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal);
-            eventArgs.EliteTimeString = evt.Value<string>("timestamp");
+            //eventArgs.EliteTimeString = evt.Value<string>("timestamp");
 
 #if DEBUG
             Type argsType = typeof(TJournalEventArgs);
@@ -65,6 +66,7 @@ namespace EliteJournalReader
                 {
                     // found something missing
                     Trace.TraceInformation($"EventArgs for {eventName} does not contain property {jsonPropertyName}");
+                    Console.WriteLine($"EventArgs for {eventName} does not contain property {jsonPropertyName}");
                     //Debugger.Break();
                 }
 
@@ -73,6 +75,20 @@ namespace EliteJournalReader
             eventArgs.PostProcess(evt);
 
             Fired?.Invoke(sender, eventArgs);
+
+            return eventArgs;
+        }
+
+        internal override JournalEventArgs JsonToEvent(object sender, JObject evt)
+        {
+            var eventArgs = evt.ToObject<TJournalEventArgs>();
+
+            eventArgs.OriginalEvent = evt;
+            eventArgs.Timestamp = DateTime.Parse(evt.Value<string>("timestamp"),
+                CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal);
+            //eventArgs.EliteTimeString = evt.Value<string>("timestamp");
+
+            eventArgs.PostProcess(evt);
 
             return eventArgs;
         }

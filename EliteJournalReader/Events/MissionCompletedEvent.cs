@@ -69,6 +69,7 @@ namespace EliteJournalReader.Events
 
             public string Faction { get; set; }
             public string Name { get; set; }
+            public string LocalisedName { get; set; }
             public long MissionID { get; set; }
             public string Commodity { get; set; }
             public string Commodity_Localised { get; set; }
@@ -85,6 +86,7 @@ namespace EliteJournalReader.Events
             public FactionEffectsDesc[] FactionEffects { get; set; }
             public string DestinationSystem { get; set; }
             public string DestinationStation { get; set; }
+            public string DestinationSettlement { get; set; }
             public string NewDestinationStation { get; set; }
             public string NewDestinationSystem { get; set; }
             public int? KillCount { get; set; }

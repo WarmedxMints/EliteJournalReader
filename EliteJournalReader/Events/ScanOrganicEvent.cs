@@ -9,6 +9,7 @@ namespace EliteJournalReader.Events
             public string ScanType { get; set; }
             public string Genus { get; set; }
             public string Species { get; set; }
+            public string Variant { get; set; }
             public string Species_Localised { get; set; }
             public long SystemAddress { get; set; }
             public long Body { get; set; }

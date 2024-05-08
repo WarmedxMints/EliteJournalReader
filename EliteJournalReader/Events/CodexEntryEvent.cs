@@ -23,6 +23,7 @@ namespace EliteJournalReader.Events
         public class CodexEntryEventArgs : JournalEventArgs
         {
             public long EntryID { get; set; }
+            public long BodyID { get; set; }
             public string Name { get; set; }
             public string Name_Localised { get; set; }
             public string SubCategory { get; set; }

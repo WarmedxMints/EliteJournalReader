@@ -1,3 +1,5 @@
+using System;
+
 namespace EliteJournalReader.Events
 {
     //When written: If you should ever reset your game
@@ -15,6 +17,7 @@ namespace EliteJournalReader.Events
             public long SystemAddress { get; set; }
             public string Body { get; set; }
             public long BodyID { get; set; }
+            public DateTime DepartureTime { get; set; }
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace EliteJournalReader.Events
 {
-   public class CarrierNameChangeEvent : JournalEvent<CarrierNameChangeEvent.CarrierNameChangeEventArgs>
+    public class CarrierNameChangeEvent : JournalEvent<CarrierNameChangeEvent.CarrierNameChangeEventArgs>
     {
         public CarrierNameChangeEvent() : base("CarrierNameChange") { }
 

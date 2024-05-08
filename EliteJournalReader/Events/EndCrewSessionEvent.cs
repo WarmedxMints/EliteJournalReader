@@ -10,6 +10,7 @@ namespace EliteJournalReader.Events
         public class EndCrewSessionEventArgs : JournalEventArgs
         {
             public bool OnCrime { get; set; }
+            public bool Telepresence { get; set; }
         }
     }
 }

@@ -1,7 +1,6 @@
-﻿using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 
 namespace EliteJournalReader
 {
@@ -65,6 +64,12 @@ namespace EliteJournalReader
             return mod;
         }
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) { }
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            if (value is ModuleAttribute attribute)
+            {
+                writer.WriteValue(attribute);
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
-using System.Linq;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EliteJournalReader.Events
 {
@@ -59,6 +60,7 @@ namespace EliteJournalReader.Events
             public string Body { get; set; }
             public int BodyID { get; set; }
             public string BodyType { get; set; }
+            public ThargoidWarData ThargoidWar { get; set; }
             public double JumpDist { get; set; }
             public double FuelUsed { get; set; }
             public double FuelLevel { get; set; }
@@ -80,9 +82,9 @@ namespace EliteJournalReader.Events
             [JsonConverter(typeof(ExtendedStringEnumConverter<PowerplayState>))]
             public PowerplayState PowerplayState { get; set; }
 
-            public Faction[] Factions { get; set; }
+            public IReadOnlyCollection<Faction> Factions { get; set; }
 
-            public Conflict[] Conflicts { get; set; }
+            public IReadOnlyCollection<Conflict> Conflicts { get; set; }
 
             public override JournalEventArgs Clone()
             {

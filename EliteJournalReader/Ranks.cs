@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace EliteJournalReader
 {
@@ -18,10 +13,15 @@ namespace EliteJournalReader
         Dangerous,
         Deadly,
         Elite,
+        [Description("Elite I")]
         EliteI,
+        [Description("Elite II")]
         EliteII,
+        [Description("Elite III")]
         EliteIII,
+        [Description("Elite IV")]
         EliteIV,
+        [Description("Elite V")]
         EliteV
     }
 
@@ -36,10 +36,15 @@ namespace EliteJournalReader
         Entrepreneur,
         Tycoon,
         Elite,
+        [Description("Elite I")]
         EliteI,
+        [Description("Elite II")]
         EliteII,
+        [Description("Elite III")]
         EliteIII,
+        [Description("Elite IV")]
         EliteIV,
+        [Description("Elite V")]
         EliteV
     }
 
@@ -54,10 +59,15 @@ namespace EliteJournalReader
         Ranger,
         Pioneer,
         Elite,
+        [Description("Elite I")]
         EliteI,
+        [Description("Elite II")]
         EliteII,
+        [Description("Elite III")]
         EliteIII,
+        [Description("Elite IV")]
         EliteIV,
+        [Description("Elite V")]
         EliteV
     }
 
@@ -72,10 +82,15 @@ namespace EliteJournalReader
         Gladiator,
         Deadeye,
         Elite,
+        [Description("Elite I")]
         EliteI,
+        [Description("Elite II")]
         EliteII,
+        [Description("Elite III")]
         EliteIII,
+        [Description("Elite IV")]
         EliteIV,
+        [Description("Elite V")]
         EliteV
     }
 
@@ -90,10 +105,15 @@ namespace EliteJournalReader
         Ecologist,
         Geneticist,
         Elite,
+        [Description("Elite I")]
         EliteI,
+        [Description("Elite II")]
         EliteII,
+        [Description("Elite III")]
         EliteIII,
+        [Description("Elite IV")]
         EliteIV,
+        [Description("Elite V")]
         EliteV
     }
     public enum FederationRank

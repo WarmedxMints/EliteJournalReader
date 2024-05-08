@@ -29,8 +29,8 @@ namespace EliteJournalReader.Events
             public EmpireRank Empire { get; set; }
             public FederationRank Federation { get; set; }
             public CQCRank CQC { get; set; }
-            public int Soldier { get; set; }
-            public int Exobiologist { get; set; }
+            public MercenaryRank Soldier { get; set; }
+            public ExobiologistRank Exobiologist { get; set; }
         }
     }
 }

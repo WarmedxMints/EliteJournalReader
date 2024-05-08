@@ -17,6 +17,7 @@ namespace EliteJournalReader.Events
             public bool Submitted { get; set; }
             public string Interdictor { get; set; }
             public bool IsPlayer { get; set; }
+            public bool IsThargoid { get; set; }
             public CombatRank CombatRank { get; set; }
             public string Faction { get; set; }
             public string Power { get; set; }

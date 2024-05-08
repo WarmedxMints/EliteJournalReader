@@ -1,6 +1,6 @@
+using Newtonsoft.Json;
 using System;
 using System.Text;
-using Newtonsoft.Json;
 
 namespace EliteJournalReader.Events
 {
@@ -49,6 +49,7 @@ namespace EliteJournalReader.Events
             public DateTime? Expiry { get; set; }
             public string DestinationSystem { get; set; }
             public string DestinationStation { get; set; }
+            public string DestinationSettlement { get; set; }
             public int? PassengerCount { get; set; }
             public bool? PassengerVIPs { get; set; }
             public bool? PassengerWanted { get; set; }

@@ -18,6 +18,7 @@ namespace EliteJournalReader.Events
             public string Faction { get; set; }
             public string Faction_Localised { get; set; }
             public long ShipID { get; set; }
+            public bool AllFines { get; set; }
         }
     }
 }

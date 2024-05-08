@@ -1,12 +1,73 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Reflection;
+/* Unmerged change from project 'EliteJournalReader (netstandard2.1)'
+Before:
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json;
+After:
+using System.Text;
+using System.Threading.Tasks;
+*/
+
+/* Unmerged change from project 'EliteJournalReader (net47)'
+Before:
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
+After:
+using System.Text;
+using System.Threading.Tasks;
+*/
+
+/* Unmerged change from project 'EliteJournalReader (netstandard2.0)'
+Before:
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
+After:
+using System.Text;
+using System.Threading.Tasks;
+*/
+
+/* Unmerged change from project 'EliteJournalReader (net46)'
+Before:
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
+After:
+using System.Text;
+using System.Threading.Tasks;
+*/
+
+/* Unmerged change from project 'EliteJournalReader (net472)'
+Before:
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
+After:
+using System.Text;
+using System.Threading.Tasks;
+*/
+
+/* Unmerged change from project 'EliteJournalReader (net48)'
+Before:
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
+After:
+using System.Text;
+using System.Threading.Tasks;
+*/
+
+/* Unmerged change from project 'EliteJournalReader (net50)'
+Before:
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
+After:
+using System.Text;
+using System.Threading.Tasks;
+*/
+
 
 namespace EliteJournalReader
 {
@@ -24,7 +85,7 @@ namespace EliteJournalReader
             {
                 cache = new Dictionary<string, object>();
                 var attrs = type.GetFields().SelectMany(f => f.GetCustomAttributes<DescriptionAttribute>().Select(d => new { field = f, desc = d }));
-                foreach(var attr in attrs)
+                foreach (var attr in attrs)
                 {
                     cache[attr.desc.Description] = attr.field.GetValue(null);
                 }
