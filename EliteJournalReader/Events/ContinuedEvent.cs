@@ -12,9 +12,9 @@ namespace EliteJournalReader.Events
 
         }
 
-        internal override JournalEventArgs FireEvent(object sender, JObject evt)
+        internal override JournalEventArgs FireEvent(object sender, JObject evt, bool fireEvent)
         {
-            var args = base.FireEvent(sender, evt);
+            var args = base.FireEvent(sender, evt, fireEvent);
 
             // a continued event signals that a new file is coming, so
             // let's start polling for it

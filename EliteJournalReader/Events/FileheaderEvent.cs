@@ -1,3 +1,5 @@
+using System;
+
 namespace EliteJournalReader.Events
 {
     public class FileheaderEvent : JournalEvent<FileheaderEvent.FileheaderEventArgs>
@@ -9,7 +11,7 @@ namespace EliteJournalReader.Events
             public int part { get; set; }
             public string language { get; set; }
             public bool Odyssey { get; set; }
-            public string gameversion { get; set; }
+            public Version gameversion { get; set; }
             public string build { get; set; }
         }
     }

@@ -77,7 +77,7 @@ namespace EliteJournalReader.Events
             public string SystemSecurity_Localised { get; set; }
             public long Population { get; set; }
             public bool Wanted { get; set; }
-            public string[] Powers { get; set; }
+            public IReadOnlyCollection<string> Powers { get; set; }
 
             [JsonConverter(typeof(ExtendedStringEnumConverter<PowerplayState>))]
             public PowerplayState PowerplayState { get; set; }

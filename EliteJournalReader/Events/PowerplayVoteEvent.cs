@@ -14,6 +14,7 @@ namespace EliteJournalReader.Events
             public string Power { get; set; }
             public string System { get; set; }
             public int Votes { get; set; }
+            public int VoteToConsolidate { get; set; }
         }
     }
 }

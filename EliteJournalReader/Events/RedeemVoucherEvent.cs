@@ -13,11 +13,11 @@ namespace EliteJournalReader.Events
             public struct FactionAmount
             {
                 public string Faction;
-                public int Amount;
+                public long Amount;
             }
 
             public string Type { get; set; }
-            public int Amount { get; set; }
+            public long Amount { get; set; }
             public string Faction { get; set; }
             public double? BrokerPercentage { get; set; }
             public FactionAmount[] Factions { get; set; }

@@ -19,7 +19,7 @@ namespace EliteJournalReader
             EventNames = eventNames;
         }
 
-        internal abstract JournalEventArgs FireEvent(object sender, JObject evt);
+        internal abstract JournalEventArgs FireEvent(object sender, JObject evt, bool fireEvent = true);
         internal abstract JournalEventArgs JsonToEvent(object sender, JObject evt);
     }
 
@@ -36,7 +36,7 @@ namespace EliteJournalReader
 
         public void RemoveHandler(EventHandler<TJournalEventArgs> eventHandler) => Fired -= eventHandler;
 
-        internal override JournalEventArgs FireEvent(object sender, JObject evt)
+        internal override JournalEventArgs FireEvent(object sender, JObject evt, bool fireEvent = true)
         {
             var eventArgs = evt.ToObject<TJournalEventArgs>();
 
@@ -74,8 +74,10 @@ namespace EliteJournalReader
 #endif
             eventArgs.PostProcess(evt);
 
-            Fired?.Invoke(sender, eventArgs);
-
+            if (fireEvent)
+            {
+                Fired?.Invoke(sender, eventArgs);
+            }
             return eventArgs;
         }
 
@@ -85,7 +87,7 @@ namespace EliteJournalReader
 
             eventArgs.OriginalEvent = evt;
             eventArgs.Timestamp = DateTime.Parse(evt.Value<string>("timestamp"),
-                CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal);
+            CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal);
             //eventArgs.EliteTimeString = evt.Value<string>("timestamp");
 
             eventArgs.PostProcess(evt);

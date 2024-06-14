@@ -17,6 +17,7 @@ namespace EliteJournalReader.Events
     {
         Unknown,
         Mothership,
-        Fighter
+        Fighter,
+        SRV
     }
 }

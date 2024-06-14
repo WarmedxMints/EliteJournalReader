@@ -18,125 +18,125 @@ namespace EliteJournalReader
         Unknown,
 
         // main sequence
-        [Description("O CLASS STAR")]
+        [Description("O Class")]
         O,
-        [Description("B CLASS STAR")]
+        [Description("B Class")]
         B,
-        [Description("A CLASS STAR")]
+        [Description("A Class")]
         A,
-        [Description("F CLASS STAR")]
+        [Description("F Class")]
         F,
-        [Description("G CLASS STAR")]
+        [Description("G Class")]
         G,
-        [Description("K CLASS STAR")]
+        [Description("K Class")]
         K,
-        [Description("M CLASS STAR")]
+        [Description("M Class")]
         M,
-        [Description("L CLASS STAR")]
+        [Description("L Class")]
         L,
-        [Description("T CLASS STAR")]
+        [Description("T Class")]
         T,
-        [Description("Y CLASS STAR")]
+        [Description("Y Class")]
         Y,
 
         // proto stars
-        [Description("TTS PROTO STAR")]
+        [Description("TTS Proto Star")]
         TTS,
-        [Description("AEBE PROTO STAR")]
+        [Description("AEBE Proto Star")]
         AeBe,
 
         // wolf-rayet
-        [Description("W WOLF-RAYLET")]
+        [Description("W Wolf-Raylet")]
         W,
-        [Description("WN WOLF-RAYLET")]
+        [Description("WN Wolf-Raylet")]
         WN,
-        [Description("WNC WOLF-RAYLET")]
+        [Description("WNC Wolf-Raylet")]
         WNC,
-        [Description("WC WOLF-RAYLET")]
+        [Description("WC Wolf-Raylet")]
         WC,
-        [Description("WO WOLF-RAYLET")]
+        [Description("WO Wolf-Raylet")]
         WO,
 
         // carbon stars
-        [Description("CS CARBON STAR")]
+        [Description("CS Carbon Star")]
         CS,
-        [Description("C CARBON STAR")]
+        [Description("C Carbon Star")]
         C,
-        [Description("CN CARBON STAR")]
+        [Description("CN Carbon Star")]
         CN,
-        [Description("CJ  CARBON STAR")]
+        [Description("CJ  Carbon Star")]
         CJ,
-        [Description("CH CLASS CARBON STAR")]
+        [Description("CH CLASS Carbon Star")]
         CH,
-        [Description("CHD CLASS CARBON STAR")]
+        [Description("CHD CLASS Carbon Star")]
         CHd,
-        [Description("MS CLASS CARBON STAR")]
+        [Description("MS CLASS Carbon Star")]
         MS,
-        [Description("S CLASS CARBON STAR")]
+        [Description("S CLASS Carbon Star")]
         S,
 
         // white dwarfs
-        [Description("D CLASS WHITE DWARF STAR")]
+        [Description("D Class White Dwarf")]
         D,
-        [Description("DA CLASS WHITE DWARF STAR")]
+        [Description("DA Class White Dwarf")]
         DA,
-        [Description("DAB CLASS WHITE DWARF STAR")]
+        [Description("DAB Class White Dwarf")]
         DAB,
-        [Description("DAO CLASS WHITE DWARF STAR")]
+        [Description("DAO Class White Dwarf")]
         DAO,
-        [Description("DAZ CLASS WHITE DWARF STAR")]
+        [Description("DAZ Class White Dwarf")]
         DAZ,
-        [Description("DAV CLASS WHITE DWARF STAR")]
+        [Description("DAV Class White Dwarf")]
         DAV,
-        [Description("DB CLASS WHITE DWARF STAR")]
+        [Description("DB Class White Dwarf")]
         DB,
-        [Description("DBZ CLASS WHITE DWARF STAR")]
+        [Description("DBZ Class White Dwarf")]
         DBZ,
-        [Description("DBV CLASS WHITE DWARF STAR")]
+        [Description("DBV Class White Dwarf")]
         DBV,
-        [Description("DO CLASS WHITE DWARF STAR")]
+        [Description("DO Class White Dwarf")]
         DO,
-        [Description("DOV CLASS WHITE DWARF STAR")]
+        [Description("DOV Class White Dwarf")]
         DOV,
-        [Description("DQ CLASS WHITE DWARF STAR")]
+        [Description("DQ Class White Dwarf")]
         DQ,
-        [Description("DC CLASS WHITE DWARF STAR")]
+        [Description("DC Class White Dwarf")]
         DC,
-        [Description("DCV CLASS WHITE DWARF STAR")]
+        [Description("DCV Class White Dwarf")]
         DCV,
-        [Description("DX CLASS WHITE DWARF STAR")]
+        [Description("DX Class White Dwarf")]
         DX,
 
         // neutron
-        [Description("NEUTRON STAR")]
+        [Description("Neutron Star")]
         N,
 
         // black hole
-        [Description("BLACK HOLE")]
+        [Description("Black Hole")]
         H,
 
         // exotic
-        [Description("EXOTIC")]
+        [Description("Exotic")]
         X,
 
         // other
-        [Description("SUPER MASSIVE BLACK HOLE")]
+        [Description("Super Massive Black Hole")]
         SupermassiveBlackHole,
-        [Description("A CLASS SUPER GIANT")]
+        [Description("A Class Super Giant")]
         A_BlueWhiteSuperGiant,
-        [Description("F CLASS SUPER GIANT")]
+        [Description("F Class Super Giant")]
         F_WhiteSuperGiant,
-        [Description("M CLASS SUPER GIANT")]
+        [Description("M Class Super Giant")]
         M_RedSuperGiant,
-        [Description("M CLASS GIANT")]
+        [Description("M Class Giant")]
         M_RedGiant,
-        [Description("K CLASS GIANT")]
+        [Description("K Class Giant")]
         K_OrangeGiant,
-        [Description("ROGUE PLANET")]
+        [Description("Rogue Planet")]
         RoguePlanet,
-        [Description("NEBULA")]
+        [Description("Nebula")]
         Nebula,
-        [Description("STELLA REMNANT")]
+        [Description("Stella Remnant")]
         StellarRemnantNebula
     }
 
@@ -844,7 +844,8 @@ namespace EliteJournalReader
         WingJoin = 256,
         WingLeave = 257,
         WonATrophyForSquadron = 259,
-
+        ShipyardRedeem = 260,
+        ShipRedeemed = 261,
         // removed events
         TransferMicroResources = 10000,
         BackPack = 10001,
