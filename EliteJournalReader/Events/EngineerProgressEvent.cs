@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 
 namespace EliteJournalReader.Events
@@ -18,7 +19,7 @@ namespace EliteJournalReader.Events
             public int? Rank { get; set; }
             public string Progress { get; set; }
 
-            public EngineerProgressEventArgs[] Engineers { get; set; }
+            public IReadOnlyList<EngineerProgressEventArgs> Engineers { get; set; }
 
             public override JournalEventArgs Clone()
             {

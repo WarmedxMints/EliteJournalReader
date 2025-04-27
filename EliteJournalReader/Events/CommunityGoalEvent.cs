@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace EliteJournalReader.Events
 {
@@ -55,7 +56,7 @@ namespace EliteJournalReader.Events
                 public string Bonus;
             }
 
-            public CurrentGoal[] CurrentGoals { get; set; }
+            public IReadOnlyList<CurrentGoal> CurrentGoals { get; set; }
         }
     }
 }

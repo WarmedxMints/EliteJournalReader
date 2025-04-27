@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace EliteJournalReader.Events
 {
@@ -63,7 +64,7 @@ namespace EliteJournalReader.Events
             public double MaxJumpRange { get; set; }
             public int Rebuy { get; set; }
             public bool Hot { get; set; }
-            public Module[] Modules { get; set; }
+            public IReadOnlyList<EDModule> Modules { get; set; }
 
             public override JournalEventArgs Clone()
             {

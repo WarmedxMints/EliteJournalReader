@@ -1,3 +1,6 @@
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
 namespace EliteJournalReader.Events
 {
     public class ScanOrganicEvent : JournalEvent<ScanOrganicEvent.ScanOrganicEventArgs>
@@ -6,7 +9,8 @@ namespace EliteJournalReader.Events
 
         public class ScanOrganicEventArgs : JournalEventArgs
         {
-            public string ScanType { get; set; }
+            [JsonConverter(typeof(StringEnumConverter))]
+            public OrganicScanStage ScanType { get; set; }
             public string Genus { get; set; }
             public string Genus_Localised { get; set; }
             public string Species { get; set; }

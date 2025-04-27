@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EliteJournalReader.Events
 {
     //When written: at startup
@@ -17,9 +19,9 @@ namespace EliteJournalReader.Events
 
         public class MissionsEventArgs : JournalEventArgs
         {
-            public Mission[] Active { get; set; }
-            public Mission[] Failed { get; set; }
-            public Mission[] Complete { get; set; }
+            public IReadOnlyList<Mission> Active { get; set; }
+            public IReadOnlyList<Mission> Failed { get; set; }
+            public IReadOnlyList<Mission> Complete { get; set; }
 
         }
     }

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EliteJournalReader.Events
 {
     //When written: this player has joined a wing
@@ -9,7 +11,7 @@ namespace EliteJournalReader.Events
 
         public class WingJoinEventArgs : JournalEventArgs
         {
-            public string[] Others { get; set; }
+            public IReadOnlyList<string> Others { get; set; }
         }
     }
 }

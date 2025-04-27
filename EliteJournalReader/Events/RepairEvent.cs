@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EliteJournalReader.Events
 {
     //When Written: when repairing the ship
@@ -12,7 +14,7 @@ namespace EliteJournalReader.Events
         {
             public string Item { get; set; }
             public string Item_Localised { get; set; }
-            public string[] Items { get; set; }
+            public IReadOnlyList<string> Items { get; set; }
             public int Cost { get; set; }
         }
     }

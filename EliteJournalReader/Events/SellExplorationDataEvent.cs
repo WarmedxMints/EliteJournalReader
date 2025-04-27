@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EliteJournalReader.Events
 {
     //When Written: when selling exploration data in Cartographics
@@ -13,8 +15,8 @@ namespace EliteJournalReader.Events
 
         public class SellExplorationDataEventArgs : JournalEventArgs
         {
-            public string[] Systems { get; set; }
-            public string[] Discovered { get; set; }
+            public IReadOnlyList<string> Systems { get; set; }
+            public IReadOnlyList<string> Discovered { get; set; }
             public long BaseValue { get; set; }
             public long Bonus { get; set; }
             public long TotalEarnings { get; set; }

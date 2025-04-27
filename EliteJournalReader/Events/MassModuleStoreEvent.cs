@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EliteJournalReader.Events
 {
     //When written: when putting multiple modules into storage
@@ -28,7 +30,7 @@ namespace EliteJournalReader.Events
             public string Ship { get; set; }
             public long ShipID { get; set; }
             public long MarketID { get; set; }
-            public ModuleItems[] Items { get; set; }
+            public IReadOnlyList<ModuleItems> Items { get; set; }
         }
     }
 }

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EliteJournalReader.Events
 {
     //The "Passengers" event contains:
@@ -14,7 +16,7 @@ namespace EliteJournalReader.Events
 
         public class PassengersEventArgs : JournalEventArgs
         {
-            public Passenger[] Manifest { get; set; }
+            public IReadOnlyList<Passenger> Manifest { get; set; }
         }
     }
 }

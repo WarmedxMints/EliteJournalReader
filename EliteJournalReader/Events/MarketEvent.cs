@@ -1,8 +1,5 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace EliteJournalReader.Events
 {
@@ -37,22 +34,7 @@ namespace EliteJournalReader.Events
             public string StationType { get; set; }
             public long MarketID { get; set; }
             public string CarrierDockingAccess { get; set; }
-            public string StarSystem { get; set; }
-
-            public MarketInfo ReadMarketInfo(string journalPath)
-            {
-                string filepath = Path.Combine(journalPath, "Market.json");
-                try
-                {
-                    var result = JToken.ReadFrom(new JsonTextReader(new StreamReader(filepath))).ToObject<MarketInfo>();
-                    return result;
-                }
-                catch (Exception e)
-                {
-                    System.Diagnostics.Trace.TraceError($"Error reading from {filepath}: {e.Message}");
-                    return null;
-                }
-            }
+            public string StarSystem { get; set; }           
         }
     }
 
@@ -63,7 +45,7 @@ namespace EliteJournalReader.Events
         public long MarketID { get; set; }
         public string StationName { get; set; }
         public string StarSystem { get; set; }
-        public List<MarketItem> Items { get; set; }
+        public IReadOnlyList<MarketItem> Items { get; set; }
     }
 
     public class MarketItem

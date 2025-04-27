@@ -205,7 +205,7 @@ namespace EliteJournalReader.Events
             public double DistanceFromArrivalLs { get; set; }
 
             [JsonConverter(typeof(BodyParentConverter))]
-            public BodyParent[] Parents { get; set; }
+            public IReadOnlyList<BodyParent> Parents { get; set; }
 
             public double? SemiMajorAxis { get; set; }
 
@@ -219,7 +219,7 @@ namespace EliteJournalReader.Events
 
             public double? MassEM { get; set; }
 
-            public PlanetRing[] Rings { get; set; }
+            public IReadOnlyList<PlanetRing> Rings { get; set; }
 
             [JsonConverter(typeof(ExtendedStringEnumConverter<ReserveLevel>))]
             public ReserveLevel ReserveLevel { get; set; }
@@ -249,15 +249,16 @@ namespace EliteJournalReader.Events
 
             [JsonConverter(typeof(ExtendedStringEnumConverter<PlanetClass>))]
             public PlanetClass PlanetClass { get; set; }
-
-            public string Atmosphere { get; set; }
+            [JsonConverter(typeof(ExtendedStringEnumConverter<AtmosphereDescription>))]
+            public AtmosphereDescription Atmosphere { get; set; }
 
             [JsonConverter(typeof(ExtendedStringEnumConverter<AtmosphereClass>))]
             public AtmosphereClass AtmosphereType { get; set; }
 
-            public ScanItemComponent[] AtmosphereComposition { get; set; }
+            public IReadOnlyList<ScanItemComponent> AtmosphereComposition { get; set; }
 
-            public string Volcanism { get; set; }
+            [JsonConverter(typeof(ExtendedStringEnumConverter<Volcanism>))]
+            public Volcanism Volcanism { get; set; }
 
             public double? SurfaceGravity { get; set; }
 
@@ -269,7 +270,7 @@ namespace EliteJournalReader.Events
 
             public bool? TidalLock { get; set; }
 
-            public ScanItemComponent[] Materials { get; set; }
+            public IReadOnlyList<ShipMaterials> Materials { get; set; }
 
             public bool? WasDiscovered { get; set; }
             public bool? WasMapped { get; set; }
@@ -284,10 +285,20 @@ namespace EliteJournalReader.Events
         public double Ice { get; set; }
         public double Rock { get; set; }
         public double Metal { get; set; }
+        public readonly string IcePercent => $"{Ice * 100:N2} %";
+        public readonly string RockPercent => $"{Rock * 100:N2} %";
+        public readonly string MetalPercent => $"{Metal * 100:N2} %";
+        public readonly bool HasValue => Ice > 0 || Rock > 0 || Metal > 0;
     }
     public struct ScanItemComponent
     {
         public string Name { get; set; }
+        public double Percent { get; set; }
+    }
+
+    public struct ShipMaterials
+    {
+        public PlanetMaterial Name { get; set; }
         public double Percent { get; set; }
     }
 
@@ -344,9 +355,9 @@ namespace EliteJournalReader.Events
             return bps.ToArray();
         }
 
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            if (value is not BodyParent[] parents)
+            if (value is not BodyParent[] parents || writer is null)
             {
                 return;
             }

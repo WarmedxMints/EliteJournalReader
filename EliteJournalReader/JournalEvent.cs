@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace EliteJournalReader
 {
     public abstract class JournalEvent
     {
-        public string[] EventNames { get; }
+        public IReadOnlyList<string> EventNames { get; }
 
         public string OriginalEvent { get; protected set; }
 

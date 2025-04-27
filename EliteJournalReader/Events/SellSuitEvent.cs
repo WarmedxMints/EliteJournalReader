@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EliteJournalReader.Events
 {
     public class SellSuitEvent : JournalEvent<SellSuitEvent.SellSuitEventArgs>
@@ -10,7 +12,7 @@ namespace EliteJournalReader.Events
             public string Name_Localised { get; set; }
             public int Price { get; set; }
             public long SuitID { get; set; }
-            public string[] SuitMods { get; set; }
+            public IReadOnlyList<string> SuitMods { get; set; }
         }
     }
 }

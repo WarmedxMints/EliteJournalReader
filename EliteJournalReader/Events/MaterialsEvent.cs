@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EliteJournalReader.Events
 {
     //When written: If you should ever reset your game
@@ -9,9 +11,9 @@ namespace EliteJournalReader.Events
 
         public class MaterialsEventArgs : JournalEventArgs
         {
-            public Material[] Raw { get; set; }
-            public Material[] Manufactured { get; set; }
-            public Material[] Encoded { get; set; }
+            public IReadOnlyList<Material> Raw { get; set; }
+            public IReadOnlyList<Material> Manufactured { get; set; }
+            public IReadOnlyList<Material> Encoded { get; set; }
         }
     }
 }

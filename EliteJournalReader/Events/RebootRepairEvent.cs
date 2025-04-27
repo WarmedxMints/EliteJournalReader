@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EliteJournalReader.Events
 {
     //When written: when the ‘reboot repair’ function is used
@@ -9,7 +11,7 @@ namespace EliteJournalReader.Events
 
         public class RebootRepairEventArgs : JournalEventArgs
         {
-            public string[] Modules { get; set; }
+            public IReadOnlyList<string> Modules { get; set; }
         }
     }
 }

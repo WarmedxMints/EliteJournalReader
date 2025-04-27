@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EliteJournalReader.Events
 {
     //When written: at startup, when loading from main menu
@@ -9,7 +11,7 @@ namespace EliteJournalReader.Events
 
         public class CargoEventArgs : JournalEventArgs
         {
-            public Commodity[] Inventory { get; set; }
+            public IReadOnlyList<Commodity> Inventory { get; set; }
             public int Count { get; set; }
             public string Vessel { get; set; }
         }

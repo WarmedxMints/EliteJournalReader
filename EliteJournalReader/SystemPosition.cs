@@ -8,11 +8,11 @@ namespace EliteJournalReader
     {
         public double X, Y, Z;
 
-        public bool IsZero() => Math.Abs(X) <= 0.01 && Math.Abs(Y) <= 0.01 && Math.Abs(Z) <= 0.01;
+        public readonly bool IsZero() => Math.Abs(X) <= 0.01 && Math.Abs(Y) <= 0.01 && Math.Abs(Z) <= 0.01;
 
         public override bool Equals(object obj) => obj is SystemPosition that && Equals(that);
 
-        public bool Equals(SystemPosition that) => X == that.X && Y == that.Y && Z == that.Z;
+        public readonly bool Equals(SystemPosition that) => X == that.X && Y == that.Y && Z == that.Z;
 
         public override int GetHashCode()
         {

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EliteJournalReader.Events
 {
     public class EmbarkEvent : JournalEvent<EmbarkEvent.EmbarkEventArgs>
@@ -25,7 +27,7 @@ namespace EliteJournalReader.Events
             public string StationName { get; set; }
             public string StationType { get; set; }
             public long MarketID { get; set; }
-            public CrewInfo[] Crew { get; set; }
+            public IReadOnlyList<CrewInfo> Crew { get; set; }
         }
     }
 }

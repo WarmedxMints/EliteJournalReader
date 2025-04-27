@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EliteJournalReader.Events
 {
     //When written: when using SAA scanner on a planet or rings
@@ -17,8 +19,8 @@ namespace EliteJournalReader.Events
             public long SystemAddress { get; set; }
             public string BodyName { get; set; }
             public long BodyID { get; set; }
-            public SAASignal[] Signals { get; set; }
-            public SAAGenus[] Genuses { get; set; }
+            public IReadOnlyList<SAASignal> Signals { get; set; }
+            public IReadOnlyList<SAAGenus> Genuses { get; set; }
         }
     }
 }

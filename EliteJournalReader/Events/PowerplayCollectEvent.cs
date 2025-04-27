@@ -13,7 +13,17 @@ namespace EliteJournalReader.Events
         {
             public string Power { get; set; }
             public string Type { get; set; }
+            public string Type_Localised { get; set; }
             public int Count { get; set; }
+
+            public string GetTypeCollected()
+            {
+                if(string.IsNullOrEmpty(Type_Localised))
+                {
+                    return Type;
+                }
+                return Type_Localised;
+            }
         }
     }
 }

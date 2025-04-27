@@ -41,6 +41,7 @@ namespace EliteJournalReader
             Filter = DefaultFilter;
             NotifyFilter = NotifyFilters.CreationTime | NotifyFilters.LastWrite;
 
+#pragma warning disable CA1031 // Do not catch general exception types
             try
             {
                 Path = System.IO.Path.GetFullPath(path);
@@ -49,6 +50,7 @@ namespace EliteJournalReader
             {
                 Trace.TraceError("Exception in setting path: " + ex.Message);
             }
+#pragma warning restore CA1031 // Do not catch general exception types
         }
 
         /// <summary>
@@ -83,8 +85,7 @@ namespace EliteJournalReader
                 return;
             }
 
-            if (cancellationTokenSource != null)
-                cancellationTokenSource.Cancel(); // should not happen, but let's be safe, okay?
+            cancellationTokenSource?.Cancel(); // should not happen, but let's be safe, okay?
 
             cancellationTokenSource = new CancellationTokenSource();
 
@@ -101,14 +102,14 @@ namespace EliteJournalReader
 
         public virtual void StopWatching()
         {
+#pragma warning disable CA1031 // Do not catch general exception types
             try
             {
                 if (EnableRaisingEvents)
                 {
                     Changed -= UpdateStatus;
 
-                    if (cancellationTokenSource != null)
-                        cancellationTokenSource.Cancel();
+                    cancellationTokenSource?.Cancel();
 
                     EnableRaisingEvents = false;
                 }
@@ -118,9 +119,15 @@ namespace EliteJournalReader
                 //Trace.TraceError($"Error while stopping Status watcher: {e.Message}");
                 Trace.TraceInformation(e.StackTrace);
             }
+#pragma warning restore CA1031 // Do not catch general exception types
         }
 
-        protected void UpdateStatus(object sender, FileSystemEventArgs e) => UpdateStatus(e.FullPath, 0);
+        protected void UpdateStatus(object sender, FileSystemEventArgs e)
+        {
+            if (e is null)
+                return;
+            UpdateStatus(e.FullPath, 0);
+        }
 
         private DateTime lastTimestamp = DateTime.MinValue;
         protected void UpdateStatus(string fullPath, int attempt)
@@ -128,20 +135,17 @@ namespace EliteJournalReader
             try
             {
                 Thread.Sleep(50); // give it a wee bit
-                var streamReader = new StreamReader(new FileStream(fullPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
-#pragma warning disable IDE0063 // Use simple 'using' statement
-                using (var jsonTextReader = new JsonTextReader(streamReader))
-                {
-                    var evt = JToken.ReadFrom(jsonTextReader).ToObject<StatusFileEvent>() ?? throw new ArgumentNullException($"Unexpected empty status.json file");
+                using var streamReader = new StreamReader(new FileStream(fullPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
 
-                    // only fire the event if it's new data
-                    if (evt.Timestamp > lastTimestamp)
-                    {
-                        lastTimestamp = evt.Timestamp;
-                        FireStatusUpdatedEvent(evt);
-                    }
+                using var jsonTextReader = new JsonTextReader(streamReader);
+                var evt = JToken.ReadFrom(jsonTextReader).ToObject<StatusFileEvent>() ?? throw new ArgumentNullException($"Unexpected empty status.json file");
+
+                // only fire the event if it's new data
+                if (evt.Timestamp > lastTimestamp)
+                {
+                    lastTimestamp = evt.Timestamp;
+                    FireStatusUpdatedEvent(evt);
                 }
-#pragma warning restore IDE0063 // Use simple 'using' statement
             }
             catch (IOException ioe) { HandleUpdateStatusException(ioe, fullPath, attempt); }
             catch (JsonException je) { HandleUpdateStatusException(je, fullPath, attempt); }

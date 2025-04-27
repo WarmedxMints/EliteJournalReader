@@ -22,7 +22,7 @@ namespace EliteJournalReader.Events
             public string Name { get; set; }
             public string Name_Localised { get; set; }
             public int OwnerID { get; set; }
-            public int MissionID { get; set; }
+            public ulong MissionID { get; set; }
             public int Count { get; set; }
         }
 

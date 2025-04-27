@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EliteJournalReader.Events
 {
     //When Written: when requesting an engineer upgrade
@@ -23,8 +25,8 @@ namespace EliteJournalReader.Events
             public string Module { get; set; }
             public string ExperimentalEffect { get; set; }
             public string ExperimentalEffect_Localised { get; set; }
-            public Material[] Ingredients { get; set; }
-            public EngineeringModifiers[] Modifiers { get; set; }
+            public IReadOnlyList<Material> Ingredients { get; set; }
+            public IReadOnlyList<EngineeringModifiers> Modifiers { get; set; }
         }
     }
 }

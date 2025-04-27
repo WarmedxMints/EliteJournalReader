@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
+using System.Diagnostics;
 using System.IO;
 
 namespace EliteJournalReader
@@ -15,11 +16,22 @@ namespace EliteJournalReader
 
         public MessageReceivedEventArgs(JournalEventArgs args, string eventType, string filename, long offset)
         {
+            if (args is null)
+            {
+#if DEBUG
+                Trace.WriteLine($"arg null | Event : {eventType}");
+#endif
+                return;
+            }
             JObject = args.OriginalEvent?.DeepClone() as JObject;
-            EventType = Enum.Parse<JournalTypeEnum>(eventType);
+            EventType = JournalTypeEnum.Unknown;
+            if (Enum.TryParse(eventType, out JournalTypeEnum type))
+            {
+                EventType = type;
+            }
             Timestamp = args.Timestamp;
             EventArgs = args;
-            Filename = Path.GetFileName(filename); 
+            Filename = Path.GetFileName(filename);
             Offset = offset;
         }
     }

@@ -13,7 +13,7 @@ namespace EliteJournalReader.Events
             public string Type { get; set; }
             public string Type_Localised { get; set; }
             public bool Stolen { get; set; }
-            public long MissionID { get; set; }
+            public ulong MissionID { get; set; }
         }
     }
 }

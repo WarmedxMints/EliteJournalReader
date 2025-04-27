@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Text;
 
 namespace EliteJournalReader.Events
@@ -70,20 +71,20 @@ namespace EliteJournalReader.Events
             public string Faction { get; set; }
             public string Name { get; set; }
             public string LocalisedName { get; set; }
-            public long MissionID { get; set; }
+            public ulong MissionID { get; set; }
             public string Commodity { get; set; }
             public string Commodity_Localised { get; set; }
-            public int? Count { get; set; }
+            public int Count { get; set; }
             public string Target { get; set; }
             public string TargetType { get; set; }
             public string TargetFaction { get; set; }
             public int Reward { get; set; }
             public string Donation { get; set; }
-            public int? Donated { get; set; }
-            public string[] PermitsAwarded { get; set; }
-            public CommodityRewardItem[] CommodityReward { get; set; }
-            public MaterialRewardItem[] MaterialsReward { get; set; }
-            public FactionEffectsDesc[] FactionEffects { get; set; }
+            public int Donated { get; set; }
+            public IReadOnlyList<string> PermitsAwarded { get; set; }
+            public IReadOnlyList<CommodityRewardItem> CommodityReward { get; set; }
+            public IReadOnlyList<MaterialRewardItem> MaterialsReward { get; set; }
+            public IReadOnlyList<FactionEffectsDesc> FactionEffects { get; set; }
             public string DestinationSystem { get; set; }
             public string DestinationStation { get; set; }
             public string DestinationSettlement { get; set; }
@@ -93,7 +94,7 @@ namespace EliteJournalReader.Events
 
             public override string ToString()
             {
-                StringBuilder sb = new StringBuilder();
+                var sb = new StringBuilder();
 
                 sb.AppendLine($"Time   :{Timestamp}");
                 sb.AppendLine($"Giver   :{Faction}");

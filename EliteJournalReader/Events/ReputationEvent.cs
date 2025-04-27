@@ -34,7 +34,7 @@ namespace EliteJournalReader.Events
             public ReputationStatus IndependentStatus => CalculateReputationStatus(Independent);
 
 
-            private ReputationStatus CalculateReputationStatus(double rep)
+            private static ReputationStatus CalculateReputationStatus(double rep)
             {
                 if (rep < -90) return ReputationStatus.Hostile;
                 else if (rep < -35) return ReputationStatus.Unfriendly;

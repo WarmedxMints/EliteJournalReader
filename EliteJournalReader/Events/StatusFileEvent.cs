@@ -97,7 +97,7 @@ namespace EliteJournalReader.Events
     public struct Destination
     {
         public string System { get; set; }
-        public string Body { get; set; }
+        public long Body { get; set; }
         public string Name { get; set; }
     }
 
@@ -155,6 +155,9 @@ namespace EliteJournalReader.Events
         Hot = 0x00000200,
         VeryCold = 0x00000400,
         VeryHot = 0x00000800,
+        FSDSCOActive = 0x00100000,
+        FSDSCAActive = 0x00200000,
+        NPCCrewActive = 0x00400000
     }
 
     public enum StatusGuiFocus

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EliteJournalReader.Events
 {
     public class LoadoutRemoveModuleEvent : JournalEvent<LoadoutRemoveModuleEvent.LoadoutRemoveModuleEventArgs>
@@ -14,7 +16,7 @@ namespace EliteJournalReader.Events
             public string SlotName { get; set; }
             public long SuitModuleID { get; set; }
             public string Class { get; set; }
-            public string[] WeaponMods { get; set; }
+            public IReadOnlyList<string> WeaponMods { get; set; }
         }
     }
 }

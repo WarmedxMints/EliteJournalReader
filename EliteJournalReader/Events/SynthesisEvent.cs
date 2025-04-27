@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EliteJournalReader.Events
 {
     //When written: when synthesis is used to repair or rearm
@@ -11,7 +13,7 @@ namespace EliteJournalReader.Events
         public class SynthesisEventArgs : JournalEventArgs
         {
             public string Name { get; set; }
-            public Material[] Materials { get; set; }
+            public IReadOnlyList<Material> Materials { get; set; }
         }
     }
 }

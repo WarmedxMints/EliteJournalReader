@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EliteJournalReader
 {
     public class SuitModule
@@ -6,6 +8,6 @@ namespace EliteJournalReader
         public string ModuleName { get; set; }
         public long SuitModuleID { get; set; }
         public string Class { get; set; }
-        public string[] WeaponMods { get; set; }
+        public IReadOnlyList<string> WeaponMods { get; set; }
     }
 }

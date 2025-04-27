@@ -17,7 +17,7 @@ namespace EliteJournalReader.Events
 
         public class MissionRedirectedEventArgs : JournalEventArgs
         {
-            public long MissionID { get; set; }
+            public ulong MissionID { get; set; }
             public string Name { get; set; }
             public string LocalisedName { get; set; }
             public string MissionName { get; set; }

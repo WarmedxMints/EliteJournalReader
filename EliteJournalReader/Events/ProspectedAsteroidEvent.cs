@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EliteJournalReader.Events
 {
     public class ProspectedAsteroidEvent : JournalEvent<ProspectedAsteroidEvent.ProspectedAsteroidEventArgs>
@@ -6,7 +8,7 @@ namespace EliteJournalReader.Events
 
         public class ProspectedAsteroidEventArgs : JournalEventArgs
         {
-            public ScanItemComponent[] Materials { get; set; }
+            public IReadOnlyList<ScanItemComponent> Materials { get; set; }
             public string Content { get; set; }
             public string MotherlodeMaterial { get; set; }
             public double Percentage { get; set; }

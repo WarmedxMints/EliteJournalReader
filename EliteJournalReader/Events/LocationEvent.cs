@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace EliteJournalReader.Events
@@ -66,8 +67,8 @@ namespace EliteJournalReader.Events
             public Faction StationFaction { get; set; }
             public string StationGovernment { get; set; }
             public string StationAllegiance { get; set; }
-            public string[] StationServices { get; set; }
-            public Economy[] StationEconomies { get; set; }
+            public IReadOnlyList<string> StationServices { get; set; }
+            public IReadOnlyList<Economy> StationEconomies { get; set; }
             public string StationEconomy { get; set; }
             public Faction SystemFaction { get; set; }
             public string SystemAllegiance { get; set; }
@@ -83,14 +84,19 @@ namespace EliteJournalReader.Events
 
             public bool Wanted { get; set; }
             public long? Population { get; set; }
-            public string[] Powers { get; set; }
+
+            public string ControllingPower { get; set; }
+            public IReadOnlyCollection<string> Powers { get; set; }
+            public double PowerplayStateControlProgress { get; set; }
+            public int PowerplayStateReinforcement { get; set; }
+            public int PowerplayStateUndermining { get; set; }
 
             [JsonConverter(typeof(ExtendedStringEnumConverter<PowerplayState>))]
             public PowerplayState PowerplayState { get; set; }
 
-            public Faction[] Factions { get; set; }
-            public Conflict[] Conflicts { get; set; }
-
+            public IReadOnlyList<Faction> Factions { get; set; }
+            public IReadOnlyList<Conflict> Conflicts { get; set; }
+            public IReadOnlyCollection<PowerConflict> PowerplayConflictProgress { get; set; }
             public override JournalEventArgs Clone()
             {
                 var clone = (LocationEventArgs)base.Clone();
@@ -99,6 +105,7 @@ namespace EliteJournalReader.Events
                 clone.StationEconomies = StationEconomies?.Select(e => e.Clone()).ToArray();
                 clone.Factions = Factions?.Select(f => f.Clone()).ToArray();
                 clone.Conflicts = Conflicts?.Select(c => c.Clone()).ToArray();
+                clone.PowerplayConflictProgress = PowerplayConflictProgress?.Select(c => c.Copy()).ToArray();
                 return clone;
             }
         }

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EliteJournalReader.Events
 {
     //When written: when using the Technology Broker to unlock new purchasable technology
@@ -22,9 +24,9 @@ namespace EliteJournalReader.Events
             public long MarketID { get; set; }
             public string ItemUnlocked { get; set; }
             public string ItemUnlocked_Localised { get; set; }
-            public Commodity[] Commodities { get; set; }
-            public Material[] Materials { get; set; }
-            public Item[] ItemsUnlocked { get; set; }
+            public IReadOnlyList<Commodity> Commodities { get; set; }
+            public IReadOnlyList<Material> Materials { get; set; }
+            public IReadOnlyList<Item> ItemsUnlocked { get; set; }
         }
     }
 }

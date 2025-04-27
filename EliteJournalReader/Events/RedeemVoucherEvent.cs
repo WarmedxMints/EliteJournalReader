@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EliteJournalReader.Events
 {
     //When Written: when claiming payment for combat bounties and bonds
@@ -20,7 +22,7 @@ namespace EliteJournalReader.Events
             public long Amount { get; set; }
             public string Faction { get; set; }
             public double? BrokerPercentage { get; set; }
-            public FactionAmount[] Factions { get; set; }
+            public IReadOnlyList<FactionAmount> Factions { get; set; }
         }
     }
 }

@@ -73,7 +73,7 @@ namespace EliteJournalReader
 {
     public static class EnumHelpers
     {
-        private static readonly Dictionary<Type, Dictionary<string, object>> enumDescriptionCache = new Dictionary<Type, Dictionary<string, object>>();
+        private static readonly Dictionary<Type, Dictionary<string, object>> enumDescriptionCache = new();
 
         public static T ToEnum<T>(this string value, T defaultValue) where T : struct
         {
@@ -110,14 +110,9 @@ namespace EliteJournalReader
                 .GetFields()
                 .FirstOrDefault(f => f.GetCustomAttributes<DescriptionAttribute>()
                              .Any(a => a.Description.Equals(value, StringComparison.OrdinalIgnoreCase))
-                );
-
-            // not in the descriptions, perhaps in the 'regular' values?
-            if (e == null)
-                e = typeof(T)
+                ) ?? typeof(T)
                     .GetFields()
                     .FirstOrDefault(f => f.Name.Equals(value, StringComparison.OrdinalIgnoreCase));
-
             if (e != null)
             {
                 var resultInsensitive = (T)e.GetValue(null);
@@ -130,12 +125,17 @@ namespace EliteJournalReader
             return defaultValue;
         }
 
-        public static string StringValue(this Enum enumItem) => enumItem
+        public static string StringValue(this Enum enumItem)
+        {
+            if (enumItem == null)
+                return string.Empty;
+            return enumItem
             .GetType()
             .GetField(enumItem.ToString())
             .GetCustomAttributes<DescriptionAttribute>()
             .Select(a => a.Description)
             .FirstOrDefault() ?? enumItem.ToString();
+        }
     }
 
 
@@ -155,6 +155,9 @@ namespace EliteJournalReader
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
+            if (reader == null)
+                return defaultValue;
+
             if (reader.TokenType == JsonToken.String)
             {
                 string enumText = reader.Value.ToString();

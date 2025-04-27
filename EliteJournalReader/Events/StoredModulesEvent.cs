@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EliteJournalReader.Events
 {
     //    When written: when first visiting Outfitting, and when the set of stored modules has changed
@@ -41,7 +43,7 @@ namespace EliteJournalReader.Events
             public long MarketID { get; set; }
             public string StarSystem { get; set; }
             public string StationName { get; set; }
-            public StoredModule[] Items { get; set; }
+            public IReadOnlyList<StoredModule> Items { get; set; }
         }
     }
 }

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EliteJournalReader.Events
 {
     //    When written: when visiting shipyard
@@ -52,8 +54,8 @@ namespace EliteJournalReader.Events
             public long MarketID { get; set; }
             public string StationName { get; set; }
             public string StarSystem { get; set; }
-            public StoredShip[] ShipsHere { get; set; }
-            public StoredShip[] ShipsRemote { get; set; }
+            public IReadOnlyList<StoredShip> ShipsHere { get; set; }
+            public IReadOnlyList<StoredShip> ShipsRemote { get; set; }
         }
     }
 }

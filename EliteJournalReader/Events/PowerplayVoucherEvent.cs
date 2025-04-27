@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EliteJournalReader.Events
 {
     //When written: when receiving payment for powerplay combat
@@ -11,7 +13,7 @@ namespace EliteJournalReader.Events
         public class PowerplayVoucherEventArgs : JournalEventArgs
         {
             public string Power { get; set; }
-            public string[] Systems { get; set; }
+            public IReadOnlyList<string> Systems { get; set; }
         }
     }
 }

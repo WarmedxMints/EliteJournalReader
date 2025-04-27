@@ -1,4 +1,6 @@
-﻿namespace EliteJournalReader.Events
+﻿using System.Collections.Generic;
+
+namespace EliteJournalReader.Events
 {
     public class FSSBodySignalsEvent : JournalEvent<FSSBodySignalsEvent.FSSBodySignalsEventArgs>
     {
@@ -12,7 +14,7 @@
 
             public long SystemAddress { get; set; }
 
-            public FSSSignal[] Signals { get; set; }
+            public IReadOnlyCollection<FSSSignal> Signals { get; set; }
         }
     }
 }

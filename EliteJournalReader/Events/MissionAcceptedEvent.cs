@@ -1,4 +1,3 @@
-using Newtonsoft.Json;
 using System;
 using System.Text;
 
@@ -25,20 +24,14 @@ namespace EliteJournalReader.Events
 
         public class MissionAcceptedEventArgs : JournalEventArgs
         {
-            public long MissionID { get; set; }
+            public ulong MissionID { get; set; }
             public string Name { get; set; }
             public string LocalisedName { get; set; }
             public string Faction { get; set; }
-
-            [JsonConverter(typeof(ExtendedStringEnumConverter<InfluenceLevel>))]
-            public InfluenceLevel Influence { get; set; }
-
-            [JsonConverter(typeof(ExtendedStringEnumConverter<ReputationLevel>))]
-            public ReputationLevel Reputation { get; set; }
-
+            public string Influence { get; set; }
+            public string Reputation { get; set; }
             public int Reward { get; set; }
             public bool Wing { get; set; }
-
             public string Commodity { get; set; }
             public string Commodity_Localised { get; set; }
             public int? Count { get; set; }

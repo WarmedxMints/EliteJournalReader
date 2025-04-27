@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EliteJournalReader.Events
 {
     //When written: When owner opens carrier management
@@ -33,9 +35,9 @@ namespace EliteJournalReader.Events
             public bool PendingDecommission { get; set; }
             public CarrierSpaceUsage SpaceUsage { get; set; }
             public CarrierFinance Finance { get; set; }
-            public CarrierCrew[] Crew { get; set; }
-            public CarrierShipPack[] ShipPacks { get; set; }
-            public CarrierModulePack[] ModulePacks { get; set; }
+            public IReadOnlyList<CarrierCrew> Crew { get; set; }
+            public IReadOnlyList<CarrierShipPack> ShipPacks { get; set; }
+            public IReadOnlyList<CarrierModulePack> ModulePacks { get; set; }
         }
 
         public struct CarrierSpaceUsage
@@ -55,6 +57,7 @@ namespace EliteJournalReader.Events
             public long ReserveBalance { get; set; }
             public long AvailableBalance { get; set; }
             public double ReservePercent { get; set; }
+            public double TaxRate { get; set; }
             public double TaxRate_pioneersupplies { get; set; }
             public double TaxRate_shipyard { get; set; }
             public double TaxRate_rearm { get; set; }

@@ -1,3 +1,8 @@
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
+using System.Collections.Generic;
+
 namespace EliteJournalReader.Events
 {
     //When written: when a new discovery is added to the Codex
@@ -30,7 +35,9 @@ namespace EliteJournalReader.Events
             public string SubCategory_Localised { get; set; }
             public string Category { get; set; }
             public string Category_Localised { get; set; }
-            public string Region { get; set; }
+            [JsonConverter(typeof(GalaxyRegionTypeConvertor))]
+            public GalacticRegions Region { get; set; }
+            public string Region_Localised { get; set; }
             public string System { get; set; }
             public long SystemAddress { get; set; }
             public string NearestDestination { get; set; }
@@ -38,9 +45,24 @@ namespace EliteJournalReader.Events
             public bool IsNewEntry { get; set; } = false;
             public int? VoucherAmount { get; set; }
             public bool NewTraitsDiscovered { get; set; } = false;
-            public string[] Traits { get; set; }
+            public IReadOnlyList<string> Traits { get; set; }
             public double Latitude { get; set; }
             public double Longitude { get; set; }
+        }
+
+        private class GalaxyRegionTypeConvertor : StringEnumConverter
+        {
+            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            {
+                if (string.IsNullOrEmpty(reader.Value?.ToString()))
+                    return GalacticRegions.Unknown;
+
+                if (reader.Value is string s)
+                {
+                    return Enum.Parse<GalacticRegions>(s.Replace("$", "").Replace(";", ""));
+                }
+                return base.ReadJson(reader, objectType, existingValue, serializer);
+            }
         }
     }
 }

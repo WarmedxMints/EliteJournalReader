@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace EliteJournalReader.Events
 {
     //When written: when converting a pre-2.4 engineered module
@@ -24,7 +26,7 @@ namespace EliteJournalReader.Events
             public long BlueprintID { get; set; }
             public int Level { get; set; }
             public double Quality { get; set; }
-            public EngineeringModifiers[] Modifiers { get; set; }
+            public IReadOnlyList<EngineeringModifiers> Modifiers { get; set; }
             public bool IsPreview { get; set; }
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace EliteJournalReader
 {
-    public class Module
+    public class EDModule
     {
         public string Slot { get; set; }
         public string Item { get; set; }
@@ -12,9 +12,9 @@
         public int? AmmoInHopper { get; set; }
         public EngineeredModule Engineering { get; set; }
 
-        public Module Clone()
+        public EDModule Clone()
         {
-            var clone = (Module)MemberwiseClone();
+            var clone = (EDModule)MemberwiseClone();
             clone.Engineering = Engineering?.Clone();
             return clone;
         }

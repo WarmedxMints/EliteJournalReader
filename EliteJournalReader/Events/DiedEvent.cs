@@ -1,4 +1,5 @@
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace EliteJournalReader.Events
 {
@@ -28,14 +29,14 @@ namespace EliteJournalReader.Events
 
             public override void PostProcess(JObject evt)
             {
+                if (evt == null) return;
                 string killerName = evt.Value<string>("KillerName");
                 if (!string.IsNullOrEmpty(killerName))
                 {
                     // it was an individual
                     Killers = new Killer[1]
                     {
-                        new Killer
-                        {
+                        new() {
                             Name = killerName,
                             Ship = evt.Value<string>("KillerShip"),
                             Rank = evt.Value<string>("KillerRank")
@@ -44,7 +45,7 @@ namespace EliteJournalReader.Events
                 }
             }
 
-            public Killer[] Killers { get; set; }
+            public IReadOnlyList<Killer> Killers { get; set; }
         }
     }
 }

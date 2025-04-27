@@ -77,14 +77,17 @@ namespace EliteJournalReader.Events
             public string SystemSecurity_Localised { get; set; }
             public long Population { get; set; }
             public bool Wanted { get; set; }
+            public string ControllingPower { get; set; }
             public IReadOnlyCollection<string> Powers { get; set; }
+            public double PowerplayStateControlProgress { get; set; }
+            public int PowerplayStateReinforcement { get; set; }
+            public int PowerplayStateUndermining { get; set; } 
 
             [JsonConverter(typeof(ExtendedStringEnumConverter<PowerplayState>))]
             public PowerplayState PowerplayState { get; set; }
-
             public IReadOnlyCollection<Faction> Factions { get; set; }
-
             public IReadOnlyCollection<Conflict> Conflicts { get; set; }
+            public IReadOnlyCollection<PowerConflict> PowerplayConflictProgress { get; set; }
 
             public override JournalEventArgs Clone()
             {
@@ -92,8 +95,14 @@ namespace EliteJournalReader.Events
                 clone.SystemFaction = SystemFaction?.Clone();
                 clone.Factions = Factions?.Select(f => f.Clone()).ToArray();
                 clone.Conflicts = Conflicts?.Select(c => c.Clone()).ToArray();
+                clone.PowerplayConflictProgress = PowerplayConflictProgress?.Select(c => c.Copy()).ToArray();
                 return clone;
             }
         }
+    }
+
+    public record PowerConflict(string Power, double ConflictProgress)
+    {
+        public PowerConflict Copy() => new(Power, ConflictProgress);
     }
 }
