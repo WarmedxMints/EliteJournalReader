@@ -81,7 +81,7 @@ namespace EliteJournalReader
 
             if (!Directory.Exists(Path))
             {
-                //Trace.TraceError($"Cannot watch non-existing folder {Path}.");
+                Trace.TraceError($"Cannot watch non-existing folder {Path}.");
                 return;
             }
 
@@ -116,7 +116,7 @@ namespace EliteJournalReader
             }
             catch (Exception e)
             {
-                //Trace.TraceError($"Error while stopping Status watcher: {e.Message}");
+                Trace.TraceError($"Error while stopping Status watcher: {e.Message}");
                 Trace.TraceInformation(e.StackTrace);
             }
 #pragma warning restore CA1031 // Do not catch general exception types

@@ -234,7 +234,7 @@ namespace EliteJournalReader
                     using var reader = new StreamReader(new FileStream(journalFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
 
                     LatestJournalFile = filename;
-                    //Trace.TraceInformation($"Journal: now reading previous entries from {LatestJournalFile}.");
+                    Trace.TraceInformation($"Journal: now reading previous entries from {LatestJournalFile}.");
                     offset = ParseData(reader, 0, filename);
                 }
             }
@@ -272,7 +272,7 @@ namespace EliteJournalReader
                     using var reader = new StreamReader(new FileStream(journalFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
 
                     string[] fName = filename.Split('\\');
-                    //Trace.TraceInformation($"Journal: now reading previous entries from {filename}.");
+                    Trace.TraceInformation($"Journal: now reading previous entries from {filename}.");
 
                     progress.Report($"{fName[^1]}");
 
@@ -302,13 +302,13 @@ namespace EliteJournalReader
                 // now process each journal
                 foreach (string filename in journals)
                 {
-                    //Trace.TraceInformation($"Journal: now reading previous entries from {filename}.");
+                    Trace.TraceInformation($"Journal: now reading previous entries from {filename}.");
                     string journalFile = System.IO.Path.Combine(Path, filename);
 
                     using var reader = new StreamReader(new FileStream(journalFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
 
                     string[] fName = filename.Split('\\');
-                    //Trace.TraceInformation($"Journal: now reading previous entries from {filename}.");
+                    Trace.TraceInformation($"Journal: now reading previous entries from {filename}.");
                     _ = ParseData(reader, 0, filename);
                 }
             }
@@ -356,7 +356,7 @@ namespace EliteJournalReader
 
             if (!Directory.Exists(Path))
             {
-                //Trace.TraceError($"Cannot watch non-existing folder {Path}.");
+                Trace.TraceError($"Cannot watch non-existing folder {Path}.");
                 return;
             }
 
@@ -405,7 +405,7 @@ namespace EliteJournalReader
 
             if (!Directory.Exists(Path))
             {
-                //Trace.TraceError($"Cannot watch non-existing folder {Path}.");
+                Trace.TraceError($"Cannot watch non-existing folder {Path}.");
                 return;
             }
 
@@ -465,7 +465,7 @@ namespace EliteJournalReader
 
                     using var reader = new StreamReader(new FileStream(journalFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
                     LatestJournalFile = filename;
-                    //Trace.TraceInformation($"Journal: now reading previous entries from {LatestJournalFile}.");
+                    Trace.TraceInformation($"Journal: now reading previous entries from {LatestJournalFile}.");
                     offset = ParseData(reader, fileOffset, filename);
                 }
             }
@@ -488,7 +488,7 @@ namespace EliteJournalReader
 
             if (!Directory.Exists(Path))
             {
-                //Trace.TraceError($"Cannot watch non-existing folder {Path}.");
+                Trace.TraceError($"Cannot watch non-existing folder {Path}.");
                 return;
             }
 
@@ -568,7 +568,7 @@ namespace EliteJournalReader
 
                     using var reader = new StreamReader(new FileStream(journalFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
                     LatestJournalFile = filename;
-                    //Trace.TraceInformation($"Journal: now reading previous entries from {LatestJournalFile}.");
+                    Trace.TraceInformation($"Journal: now reading previous entries from {LatestJournalFile}.");
                     offset = ParseData(reader, fileOffset, filename);
                 }
             }
@@ -710,7 +710,7 @@ namespace EliteJournalReader
             }
             catch (OperationCanceledException e)
             {
-                //Trace.TraceError($"Error while stopping Journal watcher: {e.Message}");
+                Trace.TraceError($"Error while stopping Journal watcher: {e.Message}");
                 Trace.TraceInformation(e.StackTrace);
             }
             catch { }
