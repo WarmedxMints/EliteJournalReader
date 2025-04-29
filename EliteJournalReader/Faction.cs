@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace EliteJournalReader
 {
@@ -15,9 +16,9 @@ namespace EliteJournalReader
         public bool HappiestSystem { get; set; } = false;
         public bool HomeSystem { get; set; } = false;
 
-        public IReadOnlyList<FactionStateChange> PendingStates { get; set; }
-        public IReadOnlyList<FactionStateChange> RecoveringStates { get; set; }
-        public IReadOnlyList<FactionStateChange> ActiveStates { get; set; }
+        public IReadOnlyList<FactionStateChange> PendingStates { get; set; } = [];
+        public IReadOnlyList<FactionStateChange> RecoveringStates { get; set; } = [];
+        public IReadOnlyList<FactionStateChange> ActiveStates { get; set; } = [];
 
         public override bool Equals(object obj) => Equals(obj as Faction);
 
@@ -35,9 +36,18 @@ namespace EliteJournalReader
             && that.SquadronFaction == SquadronFaction
             && that.HappiestSystem == HappiestSystem
             && that.HomeSystem == HomeSystem
-            && that.PendingStates?.Equals(PendingStates) == true
-            && that.RecoveringStates?.Equals(RecoveringStates) == true
-            && that.ActiveStates?.Equals(ActiveStates) == true;
+            && that.PendingStates.SequenceEqual(PendingStates) == true
+            && that.RecoveringStates.SequenceEqual(RecoveringStates) == true
+            && that.ActiveStates.SequenceEqual(ActiveStates) == true;
+
+        public bool BGSDataUpdated(Faction that) => that != null
+            && that.Name?.Equals(Name) == true
+            && that.FactionState?.Equals(FactionState) == true
+            && that.Influence == Influence
+            && that.MyReputation.Equals(MyReputation) == true
+            && that.PendingStates.SequenceEqual(PendingStates) == true
+            && that.RecoveringStates.SequenceEqual(RecoveringStates) == true
+            && that.ActiveStates.SequenceEqual(ActiveStates) == true;
 
         public override int GetHashCode()
         {
@@ -65,9 +75,5 @@ namespace EliteJournalReader
         public Faction Clone() => (Faction)MemberwiseClone();
     }
 
-    public struct FactionStateChange
-    {
-        public string State { get; set; }
-        public int Trend { get; set; }
-    }
+    public record FactionStateChange(string State, int Trend);
 }
