@@ -10,8 +10,8 @@
         public override bool Equals(object obj) => Equals(obj as Conflict);
 
         public bool Equals(Conflict that) => that != null
-            && that.WarType?.Equals(WarType) == true
-            && that.Status?.Equals(Status) == true
+            && string.Equals(that.WarType, WarType) 
+            && string.Equals(that.Status, Status)
             && that.Faction1?.Equals(Faction1) == true
             && that.Faction2?.Equals(Faction2) == true;
 
@@ -48,8 +48,8 @@
         public override bool Equals(object obj) => Equals(obj as ConflictFaction);
 
         public bool Equals(ConflictFaction that) => that != null
-            && that.Name?.Equals(Name) == true
-            && that.Stake?.Equals(Stake) == true
+            && string.Equals(that.Name, Name) == true
+            && string.Equals(that.Stake, Stake) == true
             && that.WonDays == WonDays;
 
         public override int GetHashCode()

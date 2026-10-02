@@ -15,7 +15,7 @@ namespace EliteJournalReader.Events
             public bool Taxi { get; set; }
             public bool Multicrew { get; set; }
             public string StarSystem { get; set; }
-            public long SystemAddress { get; set; }
+            public ulong SystemAddress { get; set; }
             public string Body { get; set; }
             public int BodyID { get; set; }
             public bool OnStation { get; set; }

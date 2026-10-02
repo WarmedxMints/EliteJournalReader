@@ -14,7 +14,7 @@ namespace EliteJournalReader.Events
         [JsonConverter(typeof(JsonPipsConverter))]
         public (int System, int Engine, int Weapons) Pips { get; set; }
 
-        public int Firegroup { get; set; }
+        public int FireGroup { get; set; }
 
         public StatusGuiFocus GuiFocus { get; set; }
 

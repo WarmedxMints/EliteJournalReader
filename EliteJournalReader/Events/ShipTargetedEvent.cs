@@ -54,9 +54,10 @@ namespace EliteJournalReader.Events
 
             public string LegalStatus { get; set; }
 
-            public long Bounty { get; set; }
+            public int Bounty { get; set; }
 
             public string SubSystem { get; set; }
+            public string Subsystem_Localised { get; set; }
 
             public double SubSystemHealth { get; set; }
             public string Power { get; set; }

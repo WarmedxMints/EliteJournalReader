@@ -7,7 +7,7 @@
         public class ColonisationSystemClaimEventArgs : JournalEventArgs
         {
             public string StarSystem { get; set; }
-            public long SystemAddress { get; set; }
+            public ulong SystemAddress { get; set; }
         }
     }
 }

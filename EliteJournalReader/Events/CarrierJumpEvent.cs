@@ -41,7 +41,7 @@ namespace EliteJournalReader.Events
         {
 
             public string StarSystem { get; set; }
-            public long SystemAddress { get; set; }
+            public ulong SystemAddress { get; set; }
 
             [JsonConverter(typeof(SystemPositionConverter))]
             public SystemPosition StarPos { get; set; }
@@ -62,9 +62,10 @@ namespace EliteJournalReader.Events
             public string ControllingPower { get; set; }
             public string StationName { get; set; }
             public string StationType { get; set; }
-            public long MarketID { get; set; }
+            public ulong MarketID { get; set; }
             public Faction StationFaction { get; set; }
             public string StationGovernment { get; set; }
+            public string StationGovernment_Localised { get; set; }
             public string StationAllegiance { get; set; }
             public IReadOnlyList<string> StationServices { get; set; }
             public string StationEconomy { get; set; }
@@ -86,8 +87,8 @@ namespace EliteJournalReader.Events
             public long? Population { get; set; }
             public IReadOnlyList<string> Powers { get; set; }
             public double PowerplayStateControlProgress { get; set; }
-            public double PowerplayStateReinforcement { get; set; }
-            public double PowerplayStateUndermining { get; set; }
+            public int PowerplayStateReinforcement { get; set; }
+            public int PowerplayStateUndermining { get; set; }
 
             [JsonConverter(typeof(ExtendedStringEnumConverter<PowerplayState>))]
             public PowerplayState PowerplayState { get; set; }

@@ -15,7 +15,7 @@ namespace EliteJournalReader.Events
             public int BodyCount { get; set; }
             public int NonBodyCount { get; set; }
             public string SystemName { get; set; }
-            public long SystemAddress { get; set; }
+            public ulong SystemAddress { get; set; }
         }
     }
 }

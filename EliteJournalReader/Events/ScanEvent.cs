@@ -196,11 +196,11 @@ namespace EliteJournalReader.Events
 
             public string StarSystem { get; set; }
 
-            public long SystemAddress { get; set; }
+            public ulong SystemAddress { get; set; }
 
             public string BodyName { get; set; }
 
-            public long BodyID { get; set; }
+            public uint BodyID { get; set; }
 
             public double DistanceFromArrivalLs { get; set; }
 
@@ -274,6 +274,7 @@ namespace EliteJournalReader.Events
 
             public bool? WasDiscovered { get; set; }
             public bool? WasMapped { get; set; }
+            public bool? WasFootfalled { get; set; }
             public double AscendingNode { get; set; }
             public double MeanAnomaly { get; set; }
             public Composition Composition { get; set; }
@@ -294,6 +295,12 @@ namespace EliteJournalReader.Events
     {
         public string Name { get; set; }
         public double Percent { get; set; }
+    }
+
+    public struct AsteroidContent
+    {
+        public string Name { get; set; }
+        public double Proportion { get; set; }
     }
 
     public struct ShipMaterials

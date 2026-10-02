@@ -57,17 +57,27 @@ namespace EliteJournalReader
                 string jsonPropertyName = jProperty.Name;
                 if (ignoreProperties.Contains(jsonPropertyName))
                 {
-                    // ignore anything in the ignore list
+                    continue;
                 }
-                else if (jsonPropertyName.EndsWith("_Localised", StringComparison.CurrentCultureIgnoreCase))
+                //if (jsonPropertyName.EndsWith("_Localised", StringComparison.CurrentCultureIgnoreCase))
+                //{
+                //    continue;
+                //}
+                if (string.IsNullOrEmpty(jsonPropertyName))
                 {
-                    // ignore localised
+                    Trace.TraceInformation($"EventArgs for {eventName} has an empty member name.  Value : {jProperty.Value}");
+                    Console.WriteLine($"EventArgs for {eventName} has an empty member name.  Value : {jProperty.Value}");
+                    continue;
                 }
-                else if (!argsPropertyNames.Any(x => string.Compare(jsonPropertyName, x, StringComparison.InvariantCultureIgnoreCase) == 0))
+                if (!argsPropertyNames.Any(x => string.Compare(jsonPropertyName, x, StringComparison.InvariantCultureIgnoreCase) == 0))
                 {
                     // found something missing
                     Trace.TraceInformation($"EventArgs for {eventName} does not contain property {jsonPropertyName}");
                     Console.WriteLine($"EventArgs for {eventName} does not contain property {jsonPropertyName}");
+                    if (sender is JournalWatcher watcher)
+                    {
+                        watcher.SendErrorMessage($"EventArgs for {eventName} does not contain property {jsonPropertyName}");
+                    }
                     //Debugger.Break();
                 }
 

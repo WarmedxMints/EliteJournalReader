@@ -3,7 +3,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+#if DEBUG
 using System.Diagnostics;
+#endif
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -57,15 +59,27 @@ namespace EliteJournalReader
         /// </summary>
         private bool isPollingForNewFile = false;
 
+        private bool IsPollingForNewFile
+        {
+            get => isPollingForNewFile;
+            set
+            {
+                isPollingForNewFile = value;
+#if DEBUG
+                Trace.WriteLine($"Polling for new file : {value}");
+#endif
+            }
+        }
+
         /// <summary>
         /// Keep a map of event names to event objects
         /// </summary>
-        private static readonly Dictionary<string, JournalEvent> journalEventsByName = new();
+        private static readonly Dictionary<string, JournalEvent> journalEventsByName = [];
 
         /// <summary>
         /// Also map the event objects by their type
         /// </summary>
-        private static readonly Dictionary<Type, JournalEvent> journalEvents = new();
+        private static readonly Dictionary<Type, JournalEvent> journalEvents = [];
 
         /// <summary>
         /// Fire one single event
@@ -187,7 +201,9 @@ namespace EliteJournalReader
             }
             catch (Exception ex)
             {
+#if DEBUG
                 Trace.TraceError("Exception in setting path: " + ex.Message);
+#endif
             }
 #pragma warning restore CA1031 // Do not catch general exception types
         }
@@ -210,7 +226,7 @@ namespace EliteJournalReader
             long offset = -1;
             try
             {
-                var journals = Directory.GetFiles(Path, DefaultFilter).OrderByDescending(f => GetFileCreationDate(f));
+                var journals = Directory.GetFiles(Path, DefaultFilter).OrderByDescending(GetFileCreationDate);
                 if (!journals.Any())
                 {
                     return 0; // there's nothing
@@ -234,13 +250,17 @@ namespace EliteJournalReader
                     using var reader = new StreamReader(new FileStream(journalFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
 
                     LatestJournalFile = filename;
+#if DEBUG
                     Trace.TraceInformation($"Journal: now reading previous entries from {LatestJournalFile}.");
+#endif
                     offset = ParseData(reader, 0, filename);
                 }
             }
             catch (Exception e)
             {
+#if DEBUG
                 Trace.TraceError($"Error while parsing previous data from {LatestJournalFile}: " + e.Message);
+#endif
                 return -1;
             }
 
@@ -272,8 +292,9 @@ namespace EliteJournalReader
                     using var reader = new StreamReader(new FileStream(journalFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
 
                     string[] fName = filename.Split('\\');
+#if DEBUG
                     Trace.TraceInformation($"Journal: now reading previous entries from {filename}.");
-
+#endif
                     progress.Report($"{fName[^1]}");
 
                     _ = ParseData(reader, 0, filename);
@@ -281,7 +302,9 @@ namespace EliteJournalReader
             }
             catch (Exception e)
             {
+#if DEBUG
                 Trace.TraceError($"Error while parsing previous data from {LatestJournalFile}: " + e.Message);
+#endif
                 return;
             }
 
@@ -302,19 +325,25 @@ namespace EliteJournalReader
                 // now process each journal
                 foreach (string filename in journals)
                 {
+#if DEBUG
                     Trace.TraceInformation($"Journal: now reading previous entries from {filename}.");
+#endif
                     string journalFile = System.IO.Path.Combine(Path, filename);
 
                     using var reader = new StreamReader(new FileStream(journalFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
 
                     string[] fName = filename.Split('\\');
+#if DEBUG
                     Trace.TraceInformation($"Journal: now reading previous entries from {filename}.");
+#endif
                     _ = ParseData(reader, 0, filename);
                 }
             }
             catch (Exception e)
             {
+#if DEBUG
                 Trace.TraceError($"Error while parsing previous data from {LatestJournalFile}: " + e.Message);
+#endif
                 return;
             }
 
@@ -356,7 +385,9 @@ namespace EliteJournalReader
 
             if (!Directory.Exists(Path))
             {
+#if DEBUG
                 Trace.TraceError($"Cannot watch non-existing folder {Path}.");
+#endif
                 return;
             }
 
@@ -376,7 +407,7 @@ namespace EliteJournalReader
 
                 // because we might just have read an old log file, make sure we don't miss the new one when it arrives
                 StartPollingForNewJournal();
-                Created += async (sender, args) => await UpdateLatestJournalFile();
+                Created += async (sender, args) => await UpdateLatestJournalFile().ConfigureAwait(false);
                 Changed += JournalWatcher_Changed;
 
                 if (offset >= 0)
@@ -392,7 +423,7 @@ namespace EliteJournalReader
                 }
 
                 EnableRaisingEvents = true;
-            });
+            }).ConfigureAwait(true);
         }
 
         public virtual async Task StartWatching(HashSet<string> ignoredFilenames)
@@ -405,11 +436,16 @@ namespace EliteJournalReader
 
             if (!Directory.Exists(Path))
             {
+#if DEBUG
                 Trace.TraceError($"Cannot watch non-existing folder {Path}.");
+#endif
                 return;
             }
 
-            cancellationTokenSource?.Cancel(false); // should not happen, but let's be safe, okay?
+            if (cancellationTokenSource != null)
+            {
+                cancellationTokenSource.Cancel(false); // should not happen, but let's be safe, okay?
+            }
 
             cancellationTokenSource = new CancellationTokenSource();
 
@@ -420,7 +456,7 @@ namespace EliteJournalReader
 
                 // because we might just have read an old log file, make sure we don't miss the new one when it arrives
                 StartPollingForNewJournal();
-                Created += async (sender, args) => await UpdateLatestJournalFile();
+                Created += async (sender, args) => await UpdateLatestJournalFile().ConfigureAwait(false);
                 Changed += JournalWatcher_Changed;
 
                 if (offset >= 0)
@@ -436,7 +472,7 @@ namespace EliteJournalReader
                 }
 
                 EnableRaisingEvents = true;
-            });
+            }).ConfigureAwait(true);
         }
 
         private long ProcessPreviousJournals(HashSet<string> ignoredFilenames, long fileOffset)
@@ -446,9 +482,9 @@ namespace EliteJournalReader
             {
                 var journals = Directory.GetFiles(Path, DefaultFilter)
                                         .Where(x => ignoredFilenames.Contains(System.IO.Path.GetFileName(x)) == false)
-                                        .OrderBy(f => GetFileCreationDate(f))
+                                        .OrderBy(GetFileCreationDate)
                                         .ToList();
-                if (!journals.Any())
+                if (journals.Count == 0)
                 {
                     return 0; // there's nothing
                 }
@@ -465,13 +501,17 @@ namespace EliteJournalReader
 
                     using var reader = new StreamReader(new FileStream(journalFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
                     LatestJournalFile = filename;
+#if DEBUG
                     Trace.TraceInformation($"Journal: now reading previous entries from {LatestJournalFile}.");
+#endif
                     offset = ParseData(reader, fileOffset, filename);
                 }
             }
             catch (Exception e)
             {
+#if DEBUG
                 Trace.TraceError($"Error while parsing previous data from {LatestJournalFile}: " + e.Message);
+#endif
                 return -1;
             }
 
@@ -488,11 +528,16 @@ namespace EliteJournalReader
 
             if (!Directory.Exists(Path))
             {
+#if DEBUG
                 Trace.TraceError($"Cannot watch non-existing folder {Path}.");
+#endif
                 return;
             }
 
-            cancellationTokenSource?.Cancel(false); // should not happen, but let's be safe, okay?
+            if (cancellationTokenSource != null)
+            {
+                cancellationTokenSource.Cancel(false); // should not happen, but let's be safe, okay?
+            }
 
             cancellationTokenSource = new CancellationTokenSource();
 
@@ -502,7 +547,7 @@ namespace EliteJournalReader
 
                 // because we might just have read an old log file, make sure we don't miss the new one when it arrives
                 StartPollingForNewJournal();
-                Created += async (sender, args) => await UpdateLatestJournalFile();
+                Created += async (sender, args) => await UpdateLatestJournalFile().ConfigureAwait(false);
                 Changed += JournalWatcher_Changed;
 
                 if (offset >= 0)
@@ -568,13 +613,17 @@ namespace EliteJournalReader
 
                     using var reader = new StreamReader(new FileStream(journalFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
                     LatestJournalFile = filename;
+#if DEBUG
                     Trace.TraceInformation($"Journal: now reading previous entries from {LatestJournalFile}.");
+#endif
                     offset = ParseData(reader, fileOffset, filename);
                 }
             }
             catch (Exception e)
             {
+#if DEBUG
                 Trace.TraceError($"Error while parsing previous data from {LatestJournalFile}: " + e.Message);
+#endif
                 return -1;
             }
 
@@ -600,8 +649,10 @@ namespace EliteJournalReader
             }
             catch (Exception e)
             {
+#if DEBUG
                 Trace.TraceWarning($"Error reading cargo.json journal file: {e.Message}");
                 Trace.TraceInformation(e.ToString());
+#endif
             }
 
             return null;
@@ -618,7 +669,7 @@ namespace EliteJournalReader
                     return null;
                 }
 
-                var json = File.ReadAllText(navPath, Encoding.UTF8);
+                string json = File.ReadAllText(navPath, Encoding.UTF8);
 
                 var route = JsonConvert.DeserializeObject<NavRouteEvent.NavRouteEventArgs>(json);
 
@@ -626,16 +677,18 @@ namespace EliteJournalReader
             }
             catch (Exception e)
             {
+#if DEBUG
                 Trace.TraceWarning($"Error reading navroute.json journal file: {e.Message}");
                 Trace.TraceInformation(e.ToString());
+#endif
             }
 
             return null;
         }
 
-        public MarketInfo ReadMarketInfo()
+        public MarketInfo ReadMarketInfo(string filename = "Market.json")
         {
-            string filePath = System.IO.Path.Combine(Path, "Market.json");
+            string filePath = System.IO.Path.Combine(Path, filename);
 #pragma warning disable CA1031 // Do not catch general exception types
             try
             {
@@ -661,37 +714,39 @@ namespace EliteJournalReader
 
         internal void StartPollingForNewJournal()
         {
-            if (isPollingForNewFile || cancellationTokenSource.IsCancellationRequested)
+            if (IsPollingForNewFile || cancellationTokenSource == null || cancellationTokenSource.IsCancellationRequested)
             {
                 return; // we're already polling or no longer needed
             }
 
-            isPollingForNewFile = true;
+            IsPollingForNewFile = true;
             Task.Run(async () => {
-                while (isPollingForNewFile)
+                while (IsPollingForNewFile)
                 {
                     try
                     {
                         await Task.Delay(5000, cancellationTokenSource.Token); // check every five seconds
                         if (cancellationTokenSource.IsCancellationRequested)
                         {
-                            isPollingForNewFile = false;
+                            IsPollingForNewFile = false;
                             return;
                         }
 
-                        await UpdateLatestJournalFile();
+                        await UpdateLatestJournalFile().ConfigureAwait(false);
                     }
                     catch (TaskCanceledException)
                     {
-                        isPollingForNewFile = false;
+                        IsPollingForNewFile = false;
                     }
                     catch (OperationCanceledException)
                     {
-                        isPollingForNewFile = false;
+                        IsPollingForNewFile = false;
                     }
                     catch (Exception e)
                     {
+#if DEBUG
                         Trace.TraceError($"Error while polling for new journal: {e.Message}.");
+#endif
                     }
                 }
             });
@@ -703,15 +758,21 @@ namespace EliteJournalReader
             {
                 EnableRaisingEvents = false;
                 IsLive = false;
-
-                cancellationTokenSource?.Cancel();
-
+                isPollingForNewFile = false;
+                Created -= async (sender, args) => await UpdateLatestJournalFile().ConfigureAwait(false);
+                Changed -= JournalWatcher_Changed;
+                journalCancellationTokenSource?.Cancel(false);
+                cancellationTokenSource?.Cancel(false);
+               
                 journalThread?.Join();
+                //cancellationTokenSource = null;
             }
             catch (OperationCanceledException e)
             {
+#if DEBUG
                 Trace.TraceError($"Error while stopping Journal watcher: {e.Message}");
                 Trace.TraceInformation(e.StackTrace);
+#endif
             }
             catch { }
         }
@@ -733,12 +794,16 @@ namespace EliteJournalReader
                 {
                     if (!journalThread.Join(30000))
                     {
+#if DEBUG
                         Trace.TraceError($"Something went wrong shutting down the previous journal reader thread");
+#endif
                     }
                 }
                 catch (Exception e)
                 {
+#if DEBUG
                     Trace.TraceError($"Something went wrong shutting down the previous journal reader thread: {e.Message}");
+#endif
                 }
                 finally
                 {
@@ -747,7 +812,7 @@ namespace EliteJournalReader
             }
 
             journalCancellationTokenSource = new CancellationTokenSource();
-            journalThread = new Thread(async state => {
+            journalThread = new Thread(state => {
                 // keep a current ID for this thread. If the ID changes, we are watching a different file, and this thread can exit.
                 var tuple = (Tuple<int, long, string, CancellationToken>)state;
                 int id = tuple.Item1;
@@ -779,19 +844,22 @@ namespace EliteJournalReader
                         }
                         
                         // we found new data, so this is definitely not a stale file
-                        isPollingForNewFile = false;
+                        IsPollingForNewFile = false;
 
                         // parse the data we just read
                         offset = ParseData(reader, offset, tuple.Item3);
-
+#if DEBUG
                         Trace.TraceInformation($"Journal: now reading from offset {offset}.");
+#endif
                     }
 
                 }
                 catch (Exception e)
                 {
+#if DEBUG
                     Trace.TraceError($"Something went wrong in the journal reader thread {id}: {e.Message}");
                     Trace.TraceInformation(e.StackTrace);
+#endif
                     // Something went wrong, let's check log files again
                     LatestJournalFile = null;
                 }
@@ -807,10 +875,11 @@ namespace EliteJournalReader
                         UpdateLatestJournalFile().Wait(cancellationTokenSource.Token);
                     }
                 }
-                catch (OperationCanceledException)
+                catch (OperationCanceledException ex)
                 {
 #if DEBUG
                     Trace.TraceInformation("Journal: Watcher Stopped");
+                    Trace.TraceInformation(ex.StackTrace);
 #endif
                 }
 
@@ -842,7 +911,9 @@ namespace EliteJournalReader
             }
             catch (Exception e)
             {
+#if DEBUG
                 Trace.TraceError($"Exception while parsing journal data: {e.Message}");
+#endif
             }
             finally
             {
@@ -854,7 +925,9 @@ namespace EliteJournalReader
                 }
                 catch (Exception e)
                 {
+#if DEBUG
                     Trace.TraceError($"Exception while updating position in journal file: {e.Message}");
+#endif
                     // might be something wrong with the file - let's start polling for a new one
                     StartPollingForNewJournal();
                 }
@@ -902,7 +975,7 @@ namespace EliteJournalReader
             {
                 try
                 {
-                    await Task.Delay(UPDATE_INTERVAL_MILLISECONDS, cancellationTokenSource.Token);
+                    await Task.Delay(UPDATE_INTERVAL_MILLISECONDS, cancellationTokenSource.Token).ConfigureAwait(false);
                     journals = Directory.GetFiles(Path, DefaultFilter);
                 }
                 catch (TaskCanceledException)
@@ -912,14 +985,16 @@ namespace EliteJournalReader
             }
 
             // because the timestamp is in the filename, we can just sort by filename descending.
-            string latestJournal = Directory.GetFiles(Path, DefaultFilter).OrderByDescending(f => GetFileCreationDate(f)).FirstOrDefault();
+            string latestJournal = Directory.GetFiles(Path, DefaultFilter).OrderByDescending(GetFileCreationDate).FirstOrDefault();
 
             bool isChanged = latestJournal != null && LatestJournalFile != latestJournal;
             if (isChanged)
             {
                 LatestJournalFile = latestJournal;
-                isPollingForNewFile = false;
+                IsPollingForNewFile = false;
+#if DEBUG
                 Trace.TraceInformation($"Journal: now reading from {LatestJournalFile}.");
+#endif
                 CheckForJournalUpdateAsync(latestJournal, 0);
             }
 
@@ -952,7 +1027,7 @@ namespace EliteJournalReader
                 {
                     Trace.TraceInformation($"Journal - firing event {eventType} @ {evt["timestamp"]?.Value<string>()}\r\n\t{line}");
                 }
-#endif          
+#endif
                 var journalEventArgs = FireEvent(eventType, evt, fireSingleEvent);
 
                 if (journalEventArgs is null)
@@ -968,15 +1043,25 @@ namespace EliteJournalReader
                     return;
                 }
             }
+            catch (JsonReaderException jsonEx)
+            {
+#if DEBUG
+                Trace.TraceError($"Exception handling journal event:\r\n\t{line}\r\n\t{jsonEx.GetType().FullName}: {jsonEx.Message}");
+#endif
+                OnError(new ErrorEventArgs(jsonEx));
+            }
             catch (IOException ex)
             {
+#if DEBUG
                 Trace.TraceError($"Exception handling journal event:\r\n\t{line}\r\n\t{ex.GetType().FullName}: {ex.Message}");
+#endif
                 OnError(new ErrorEventArgs(ex));
             }
             catch (Exception e)
             {
-
+#if DEBUG
                 Trace.TraceError($"Exception handling journal event:\r\n\t{line}\r\n\t{e.GetType().FullName}: {e.Message}");
+#endif
                 OnError(new ErrorEventArgs(e));
             }
         }
@@ -997,11 +1082,17 @@ namespace EliteJournalReader
             {
                 Trace.TraceWarning("No event handler registered for journal event of type: " + eventType);
                 Console.WriteLine("No event handler registered for journal event of type: " + eventType);
+                OnErrorMessage?.Invoke(this, "No event handler registered for journal event of type: " + eventType);
             }
 #endif
             return null;
         }
 
+#if DEBUG
+        public EventHandler<string> OnErrorMessage;
+
+        public void SendErrorMessage(string message) => OnErrorMessage?.Invoke(this, message);
+#endif
         public static JournalEventArgs GetEventData(string eventdata)
         {
             var evnt = JObject.Parse(new string(eventdata));
@@ -1023,13 +1114,30 @@ namespace EliteJournalReader
         public static TJournalEvent GetEvent<TJournalEvent>() where TJournalEvent : JournalEvent
         {
             var type = typeof(TJournalEvent);
-            return journalEvents.ContainsKey(type) ? journalEvents[type] as TJournalEvent : null;
+            return journalEvents.TryGetValue(type, out JournalEvent value) ? value as TJournalEvent : null;
         }
 
         public TJournalEvent GetEventLocal<TJournalEvent>() where TJournalEvent : JournalEvent
         {
             var type = typeof(TJournalEvent);
-            return journalEvents.ContainsKey(type) ? journalEvents[type] as TJournalEvent : null;
+            return journalEvents.TryGetValue(type, out JournalEvent value) ? value as TJournalEvent : null;
+        }
+
+        public bool HasFiles()
+        {
+            if (string.IsNullOrEmpty(Path) || Directory.Exists(Path) == false) 
+                return false;
+
+            try
+            {
+                var journals = Directory.GetFiles(Path, DefaultFilter).OrderBy(f => GetFileCreationDate(f)).ToList();
+                return journals.Count > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ namespace EliteJournalReader.Events
             public JumpType JumpType { get; set; }
             public string StarClass { get; set; }
             public string StarSystem { get; set; }
-            public long SystemAddress { get; set; }
+            public ulong SystemAddress { get; set; }
             public bool Taxi { get; set; }
         }
     }

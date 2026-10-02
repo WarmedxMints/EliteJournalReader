@@ -51,7 +51,7 @@ namespace EliteJournalReader.Events
         public class FSDJumpEventArgs : JournalEventArgs
         {
             public string StarSystem { get; set; }
-            public long SystemAddress { get; set; }
+            public ulong SystemAddress { get; set; }
 
             [JsonConverter(typeof(SystemPositionConverter))]
             public SystemPosition StarPos { get; set; }
@@ -97,6 +97,28 @@ namespace EliteJournalReader.Events
                 clone.Conflicts = Conflicts?.Select(c => c.Clone()).ToArray();
                 clone.PowerplayConflictProgress = PowerplayConflictProgress?.Select(c => c.Copy()).ToArray();
                 return clone;
+            }
+
+            public string ControllingFactionState
+            {
+                get
+                {
+                    if (Factions.Count <= 0 || SystemFaction is null)
+                    {
+                        return "None";
+                    }
+
+                    var faction = Factions.FirstOrDefault(x => string.Equals(x.Name, SystemFaction.Name));
+
+                    if (faction is null || faction.ActiveStates.Count == 0)
+                    {
+                        return "None";
+                    }
+
+                    var states = faction.ActiveStates.Select(x => x.State.SplitCamelCase());
+
+                    return string.Join(", ", states);
+                }
             }
         }
     }

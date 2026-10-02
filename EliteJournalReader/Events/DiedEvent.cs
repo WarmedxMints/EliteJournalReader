@@ -18,6 +18,7 @@ namespace EliteJournalReader.Events
         public class DiedEventArgs : JournalEventArgs
         {
             public string KillerName { get; set; }
+            public string KillerName_Localised { get; set; }
             public string KillerShip { get; set; }
             public string KillerRank { get; set; }
             public struct Killer

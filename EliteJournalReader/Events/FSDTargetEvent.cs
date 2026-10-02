@@ -15,7 +15,7 @@ namespace EliteJournalReader.Events
 
         public class FSDTargetEventArgs : JournalEventArgs
         {
-            public long SystemAddress { get; set; }
+            public ulong SystemAddress { get; set; }
             public string Name { get; set; }
             public int RemainingJumpsInRoute { get; set; }
             [JsonConverter(typeof(ExtendedStringEnumConverter<StarType>))]

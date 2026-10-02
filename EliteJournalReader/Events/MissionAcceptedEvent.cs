@@ -36,7 +36,9 @@ namespace EliteJournalReader.Events
             public string Commodity_Localised { get; set; }
             public int? Count { get; set; }
             public string Target { get; set; }
+            public string Target_Localised { get; set; }
             public string TargetType { get; set; }
+            public string TargetType_Localised { get; set; }
             public string TargetFaction { get; set; }
             public int? KillCount { get; set; }
             public DateTime? Expiry { get; set; }

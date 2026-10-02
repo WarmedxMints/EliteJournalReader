@@ -14,6 +14,7 @@ namespace EliteJournalReader.Events
         public class AfmuRepairsEventArgs : JournalEventArgs
         {
             public string Module { get; set; }
+            public string Module_Localised { get; set; }
             public bool FullyRepaired { get; set; }
             public double Health { get; set; }
         }

@@ -8,6 +8,10 @@ namespace EliteJournalReader.Events
         {
             public string SquadronName { get; set; }
             public string CurrentRank { get; set; }
+            public string CurrentRankName { get; set; }
+            public string CurrentRankName_Localised { get; set; }
+            public string CarrierType { get; set; }
+            public string SquadronID { get; set; }
         }
     }
 }

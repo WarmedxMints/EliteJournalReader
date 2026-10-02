@@ -11,6 +11,7 @@ namespace EliteJournalReader.Events
         {
             public long CarrierID { get; set; }
             public string DockingAccess { get; set; }
+            public string CarrierType { get; set; }
             public bool AllowNotorious { get; set; }
         }
     }

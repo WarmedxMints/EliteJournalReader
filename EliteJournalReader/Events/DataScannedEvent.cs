@@ -10,6 +10,7 @@ namespace EliteJournalReader.Events
         public class DataScannedEventArgs : JournalEventArgs
         {
             public string Type { get; set; }
+            public string Type_Localised { get; set; }
         }
     }
 }

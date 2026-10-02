@@ -13,8 +13,9 @@ namespace EliteJournalReader.Events
         {
             public long CarrierID { get; set; }
             public string SystemName { get; set; }
+            public string CarrierType { get; set; }
             public long SystemID { get; set; }
-            public long SystemAddress { get; set; }
+            public ulong SystemAddress { get; set; }
             public string Body { get; set; }
             public long BodyID { get; set; }
             public DateTime DepartureTime { get; set; }

@@ -7,7 +7,7 @@
         public class ScanBaryCentreEventArgs : JournalEventArgs
         {
             public string StarSystem { get; set; }
-            public long SystemAddress { get; set; }
+            public ulong SystemAddress { get; set; }
             public int BodyID { get; set; }
             public double SemiMajorAxis { get; set; }
             public double Eccentricity { get; set; }

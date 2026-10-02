@@ -11,6 +11,7 @@ namespace EliteJournalReader.Events
         public class EscapeInterdictionEventArgs : JournalEventArgs
         {
             public string Interdictor { get; set; }
+            public string Interdictor_Localised { get; set; }
             public bool IsPlayer { get; set; }
         }
     }

@@ -11,6 +11,7 @@ namespace EliteJournalReader.Events
         public class USSDropEventArgs : JournalEventArgs
         {
             public string USSType { get; set; }
+            public string USSType_Localised { get; set; }
             public int USSThreat { get; set; }
         }
     }

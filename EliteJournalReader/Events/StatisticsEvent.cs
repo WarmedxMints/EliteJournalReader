@@ -115,8 +115,37 @@ namespace EliteJournalReader.Events
             public MaterialsTrader Material_Trader_Stats { get; set; }
             public FLEETCARRIER FLEETCARRIER { get; set; }
             public Exobiology Exobiology { get; set; }
+            public Squadron Squadron { get; set; }
+
         }
 
+        public struct Squadron
+        {
+            public long Squadron_Bank_Credits_Deposited;
+            public long Squadron_Bank_Credits_Withdrawn;
+            public long Squadron_Bank_Commodities_Deposited_Num;
+            public long Squadron_Bank_Commodities_Deposited_Value;
+            public long Squadron_Bank_Commodities_Withdrawn_Num;
+            public long Squadron_Bank_Commodities_Withdrawn_Value;
+            public long Squadron_Bank_PersonalAssets_Deposited_Num;
+            public long Squadron_Bank_PersonalAssets_Deposited_Value;
+            public long Squadron_Bank_PersonalAssets_Withdrawn_Num;
+            public long Squadron_Bank_PersonalAssets_Withdrawn_Value;
+            public long Squadron_Bank_Ships_Deposited_Num;
+            public long Squadron_Bank_Ships_Deposited_Value;
+            public long Squadron_Leaderboard_aegis_highestcontribution;
+            public long Squadron_Leaderboard_bgs_highestcontribution;
+            public long Squadron_Leaderboard_bounty_highestcontribution;
+            public long Squadron_Leaderboard_colonisation_contribution_highestcontribution;
+            public long Squadron_Leaderboard_combat_highestcontribution; 
+            public long Squadron_Leaderboard_cqc_highestcontribution;
+            public long Squadron_Leaderboard_exploration_highestcontribution;
+            public long Squadron_Leaderboard_mining_highestcontribution;
+            public long Squadron_Leaderboard_powerplay_highestcontribution;
+            public long Squadron_Leaderboard_trade_highestcontribution;
+            public long Squadron_Leaderboard_trade_illicit_highestcontribution;
+            public long Squadron_Leaderboard_podiums;
+        }
         public struct BankAccount
         {
             public long Current_Wealth_Spent_On_Ships { get; set; }

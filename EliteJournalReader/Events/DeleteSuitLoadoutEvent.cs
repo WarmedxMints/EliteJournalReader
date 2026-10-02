@@ -8,6 +8,7 @@ namespace EliteJournalReader.Events
         {
             public long SuitID { get; set; }
             public string SuitName { get; set; }
+            public string SuitName_Localised { get; set; }
             public long LoadoutID { get; set; }
             public string LoadoutName { get; set; }
         }

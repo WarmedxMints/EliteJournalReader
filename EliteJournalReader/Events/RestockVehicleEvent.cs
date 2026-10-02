@@ -13,6 +13,7 @@ namespace EliteJournalReader.Events
         public class RestockVehicleEventArgs : JournalEventArgs
         {
             public string Type { get; set; }
+            public string Type_Localised { get; set; }
             public string Loadout { get; set; }
             public int Cost { get; set; }
             public int Count { get; set; }

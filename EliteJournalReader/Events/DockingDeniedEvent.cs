@@ -15,6 +15,7 @@ namespace EliteJournalReader.Events
         public class DockingDeniedEventArgs : JournalEventArgs
         {
             public string StationName { get; set; }
+            public string StationName_Localised { get; set; }
             public string StationType { get; set; }
             public long MarketID { get; set; }
 

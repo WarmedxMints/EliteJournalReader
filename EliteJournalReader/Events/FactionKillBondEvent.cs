@@ -12,7 +12,9 @@ namespace EliteJournalReader.Events
         public class FactionKillBondEventArgs : JournalEventArgs
         {
             public string AwardingFaction { get; set; }
+            public string AwardingFaction_Localised { get; set; }
             public string VictimFaction { get; set; }
+            public string VictimFaction_Localised { get; set; }
             public int Reward { get; set; }
         }
     }

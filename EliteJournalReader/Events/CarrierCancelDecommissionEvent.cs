@@ -9,6 +9,7 @@ namespace EliteJournalReader.Events
 
         public class CarrierCancelDecommissionEventArgs : JournalEventArgs
         {
+            public string CarrierType { get; set; }
             public long CarrierID { get; set; }
         }
     }

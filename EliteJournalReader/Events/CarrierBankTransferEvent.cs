@@ -14,6 +14,7 @@ namespace EliteJournalReader.Events
             public long Withdraw { get; set; }
             public long PlayerBalance { get; set; }
             public long CarrierBalance { get; set; }
+            public string CarrierType { get; set; }
         }
     }
 }

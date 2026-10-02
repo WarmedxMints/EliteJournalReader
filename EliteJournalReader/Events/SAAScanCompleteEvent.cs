@@ -13,7 +13,7 @@ namespace EliteJournalReader.Events
 
         public class SAAScanCompleteEventArgs : JournalEventArgs
         {
-            public long SystemAddress { get; set; }
+            public ulong SystemAddress { get; set; }
             public string BodyName { get; set; }
             public long BodyID { get; set; }
             public int ProbesUsed { get; set; }

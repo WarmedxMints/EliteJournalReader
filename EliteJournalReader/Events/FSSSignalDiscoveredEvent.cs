@@ -14,13 +14,16 @@ namespace EliteJournalReader.Events
             public string SignalName { get; set; }
             public string SignalName_Localised { get; set; }
             public string SpawningState { get; set; }
+            public string SpawningState_Localised { get; set; }
             public string SignalType { get; set; }
             public string SpawningFaction { get; set; }
+            public string SpawningFaction_Localised { get; set; }
             public double TimeRemaining { get; set; }
             public bool IsStation { get; set; } = false;
             public int ThreatLevel { get; set; } = 0;
-            public long SystemAddress { get; set; }
+            public ulong SystemAddress { get; set; }
             public string USSType { get; set; }
+            public string USSType_Localised { get; set; }
             public string SpawningPower { get; set; }
             public string OpposingPower { get; set; }
         }

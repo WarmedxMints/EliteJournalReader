@@ -5,7 +5,8 @@ namespace EliteJournalReader
     public enum CombatRank
     {
         Harmless = 0,
-        [Description("Mostly Harmless")] MostlyHarmless,
+        [Description("Mostly Harmless")] 
+        MostlyHarmless,
         Novice,
         Competent,
         Expert,
@@ -28,7 +29,8 @@ namespace EliteJournalReader
     public enum TradeRank
     {
         Penniless = 0,
-        [Description("Mostly Penniless")] MostlyPenniless,
+        [Description("Mostly Penniless")] 
+        MostlyPenniless,
         Peddler,
         Dealer,
         Merchant,

@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace EliteJournalReader.Events
 {
     //When written: If you should ever reset your game
@@ -9,10 +11,13 @@ namespace EliteJournalReader.Events
 
         public class CarrierCrewServicesEventArgs : JournalEventArgs
         {
-            public long CarrierID { get; set; }
-            public string Operation { get; set; }
-            public string CrewRole { get; set; }
+            public ulong CarrierID { get; set; }
+            [JsonConverter(typeof(ExtendedStringEnumConverter<CarrierCrewOperation>))]
+            public CarrierCrewOperation Operation { get; set; }
+            [JsonConverter(typeof(ExtendedStringEnumConverter<CarrierCrewRole>))]
+            public CarrierCrewRole CrewRole { get; set; }
             public string CrewName { get; set; }
+            public string CarrierType { get; set; }
         }
     }
 }

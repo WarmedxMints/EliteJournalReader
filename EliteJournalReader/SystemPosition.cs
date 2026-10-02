@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Numerics;
+using System.Runtime.CompilerServices;
 
 namespace EliteJournalReader
 {
@@ -36,6 +38,42 @@ namespace EliteJournalReader
 
         public static bool operator !=(SystemPosition left, SystemPosition right) => !(left == right);
 
+        public static SystemPosition operator +(SystemPosition a, SystemPosition b)
+        {
+            SystemPosition result = default(SystemPosition);
+            result.X = a.X + b.X;
+            result.Y = a.Y + b.Y;
+            result.Z = a.Z + b.Z;
+            return result;
+        }
+
+        public static SystemPosition operator -(SystemPosition a, SystemPosition b)
+        {
+            SystemPosition result = default(SystemPosition);
+            result.X = a.X - b.X;
+            result.Y = a.Y - b.Y;
+            result.Z = a.Z - b.Z;
+            return result;
+        }
+
+        public static SystemPosition operator *(float d, SystemPosition a)
+        {
+            SystemPosition result = default(SystemPosition);
+            result.X = a.X * d;
+            result.Y = a.Y * d;
+            result.Z = a.Z * d;
+            return result;
+        }
+
+        public static SystemPosition operator *(SystemPosition a, float d)
+        {
+            SystemPosition result = default(SystemPosition);
+            result.X = a.X * d;
+            result.Y = a.Y * d;
+            result.Z = a.Z * d;
+            return result;
+        }
+
         public SystemPosition Copy() => new SystemPosition() { X = X, Y = Y, Z = Z };
 
         public static float Distance(SystemPosition a, SystemPosition b)
@@ -45,6 +83,44 @@ namespace EliteJournalReader
             double diff_z = a.Z - b.Z;
             return (float)Math.Sqrt(diff_x * diff_x + diff_y * diff_y + diff_z * diff_z);
         }
+
+        public static float Dot(SystemPosition lhs, SystemPosition rhs)
+        {
+            return (float)(lhs.X * rhs.X + lhs.Y * rhs.Y + lhs.Z * rhs.Z);
+        }
+
+        public readonly SystemPosition normalized
+        {
+            get
+            {
+                return Normalize(in this);
+            }
+        }
+
+        public readonly float sqrMagnitude
+        {
+            get
+            {
+                return (float)(X * X + Y * Y + Z * Z);
+            }
+        }
+
+        public static SystemPosition Normalize(in SystemPosition value)
+        {
+            float num = value.magnitude;
+            if (!(num > 1E-05f))
+            {
+                return new() { X = 0, Y = 0, Z = 0 };
+            }
+
+            SystemPosition result = default;
+            result.X = value.X / num;
+            result.Y = value.Y / num;
+            result.Z = value.Z / num;
+            return result;
+        }
+
+        public readonly float magnitude => (float)Math.Sqrt(X * X + Y * Y + Z * Z);
     }
 
     public class SystemPositionConverter : JsonConverter

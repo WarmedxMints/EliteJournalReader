@@ -10,7 +10,7 @@ namespace EliteJournalReader.Events
         public class NavBeaconScanEventArgs : JournalEventArgs
         {
             public int NumBodies { get; set; }
-            public long SystemAddress { get; set; }
+            public ulong SystemAddress { get; set; }
         }
     }
 }

@@ -10,7 +10,7 @@ namespace EliteJournalReader.Events
 
         public class DiscoveryScanEventArgs : JournalEventArgs
         {
-            public long SystemAddress { get; set; }
+            public ulong SystemAddress { get; set; }
             public int Bodies { get; set; }
         }
     }

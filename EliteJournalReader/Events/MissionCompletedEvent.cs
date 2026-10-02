@@ -63,7 +63,7 @@ namespace EliteJournalReader.Events
 
             public struct FactionInfluenceEffect
             {
-                public long SystemAddress;
+                public ulong SystemAddress;
                 public string Trend;
                 public string Influence;
             }
@@ -76,7 +76,9 @@ namespace EliteJournalReader.Events
             public string Commodity_Localised { get; set; }
             public int Count { get; set; }
             public string Target { get; set; }
+            public string Target_Localised { get; set; }
             public string TargetType { get; set; }
+            public string TargetType_Localised { get; set; }
             public string TargetFaction { get; set; }
             public int Reward { get; set; }
             public string Donation { get; set; }

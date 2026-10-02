@@ -12,7 +12,7 @@ namespace EliteJournalReader.Events
 
         public class MarketBuyEventArgs : JournalEventArgs
         {
-            public long MarketID { get; set; }
+            public ulong MarketID { get; set; }
             public string Type { get; set; }
             public string Type_Localised { get; set; }
             public int Count { get; set; }

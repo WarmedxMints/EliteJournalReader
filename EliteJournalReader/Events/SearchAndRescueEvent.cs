@@ -11,8 +11,9 @@ namespace EliteJournalReader.Events
 
         public class SearchAndRescueEventArgs : JournalEventArgs
         {
-            public long MarketID { get; set; }
+            public ulong MarketID { get; set; }
             public string Name { get; set; }
+            public string Name_Localised { get; set; }
             public int Count { get; set; }
             public int Reward { get; set; }
         }

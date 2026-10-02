@@ -14,12 +14,13 @@ namespace EliteJournalReader.Events
         public class CarrierBuyEventArgs : JournalEventArgs
         {
             public long BoughtAtMarket { get; set; }
-            public long SystemAddress { get; set; }
+            public ulong SystemAddress { get; set; }
             public long CarrierID { get; set; }
             public string Location { get; set; }
             public long Price { get; set; }
             public string Variant { get; set; }
             public string Callsign { get; set; }
+            public string CarrierType { get; set; }
         }
     }
 }
