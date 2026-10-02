@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace EliteJournalReader.Events
 {
@@ -24,8 +25,9 @@ namespace EliteJournalReader.Events
 
         public class CarrierStatsEventArgs : JournalEventArgs
         {
-            public long CarrierID { get; set; }
+            public ulong CarrierID { get; set; }
             public string Callsign { get; set; }
+            public string CarrierType { get; set; }
             public string Name { get; set; }
             public string DockingAccess { get; set; }
             public bool AllowNotorious { get; set; }
@@ -68,7 +70,8 @@ namespace EliteJournalReader.Events
 
         public struct CarrierCrew
         {
-            public string CrewRole { get; set; }
+            [JsonConverter(typeof(ExtendedStringEnumConverter<CarrierCrewRole>))]
+            public CarrierCrewRole CrewRole { get; set; }
             public bool Activated { get; set; }
             public bool Enabled { get; set; }
             public string Name { get; set; }

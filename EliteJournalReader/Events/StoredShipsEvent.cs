@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace EliteJournalReader.Events
 {
@@ -46,7 +47,7 @@ namespace EliteJournalReader.Events
                 public bool Hot;
                 public bool InTransit;
                 public string StarSystem;
-                public long ShipMarketID;
+                public BigInteger ShipMarketID;
                 public int TransferPrice;
                 public string TransferType;
             }

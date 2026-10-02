@@ -14,8 +14,9 @@
         public class CarrierLocationEventArgs : JournalEventArgs
         {
             public long CarrierID { get; set; }
+            public string CarrierType { get; set; }
             public string StarSystem { get; set; }
-            public long SystemAddress { get; set; }
+            public ulong SystemAddress { get; set; }
             public int BodyID { get; set; }
         }
     }

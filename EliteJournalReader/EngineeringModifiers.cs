@@ -7,8 +7,9 @@ namespace EliteJournalReader
     [JsonConverter(typeof(EngineeringModifiersCoverter))]
     public struct EngineeringModifiers
     {
-        [JsonConverter(typeof(ExtendedStringEnumConverter<ModuleAttribute>))]
-        public ModuleAttribute Label { get; set; }
+        //[JsonConverter(typeof(ExtendedStringEnumConverter<ModuleAttribute>))]
+        //public ModuleAttribute Label { get; set; }
+        public string Label { get; set; }
 
         public double Value { get; set; }
         public string ValueStr { get; set; }
@@ -27,8 +28,8 @@ namespace EliteJournalReader
         {
             var mod = new EngineeringModifiers();
             var obj = JObject.Load(reader);
-
-            mod.Label = (ModuleAttribute)Enum.Parse(typeof(ModuleAttribute), obj.Value<string>(nameof(mod.Label)));
+            //TODO Fix this messy work around
+            mod.Label = obj.Value<string>(nameof(mod.Label));// (ModuleAttribute)Enum.Parse(typeof(ModuleAttribute), obj.Value<string>(nameof(mod.Label)).Replace("$", "").Replace(";", ""));
             mod.LessIsGood = obj.Value<bool>(nameof(mod.LessIsGood));
 
             var valueToken = obj[nameof(mod.Value)];

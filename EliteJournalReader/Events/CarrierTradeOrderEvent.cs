@@ -13,8 +13,9 @@ namespace EliteJournalReader.Events
             public bool BlackMarket { get; set; }
             public string Commodity { get; set; }
             public string Commodity_Localised { get; set; }
-            public long PurchaseOrder { get; set; }
-            public long SaleOrder { get; set; }
+            public string CarrierType { get; set; }
+            public int PurchaseOrder { get; set; }
+            public int SaleOrder { get; set; }
             public bool CancelTrade { get; set; } = false;
             public long Price { get; set; }
         }

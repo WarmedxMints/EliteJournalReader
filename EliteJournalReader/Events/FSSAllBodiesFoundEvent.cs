@@ -7,7 +7,7 @@ namespace EliteJournalReader.Events
         public class FSSAllBodiesFoundEventArgs : JournalEventArgs
         {
             public string SystemName { get; set; }
-            public long SystemAddress { get; set; }
+            public ulong SystemAddress { get; set; }
             public int Count { get; set; }
         }
     }

@@ -8,8 +8,9 @@ namespace EliteJournalReader.Events
 
         public class ProspectedAsteroidEventArgs : JournalEventArgs
         {
-            public IReadOnlyList<ScanItemComponent> Materials { get; set; }
+            public IReadOnlyList<AsteroidContent> Materials { get; set; }
             public string Content { get; set; }
+            public string Content_Localised { get; set; }
             public string MotherlodeMaterial { get; set; }
             public double Percentage { get; set; }
             public double Remaining { get; set; }

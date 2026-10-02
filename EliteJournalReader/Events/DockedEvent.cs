@@ -30,8 +30,8 @@ namespace EliteJournalReader.Events
             public string StarSystem { get; set; }
             public string StationName { get; set; }
             public string StationName_Localised { get; set; }
-            public long SystemAddress { get; set; }
-            public long MarketID { get; set; }
+            public ulong SystemAddress { get; set; }
+            public ulong MarketID { get; set; }
             public string StationType { get; set; }
             public bool CockpitBreach { get; set; } = false;
             public Faction StationFaction { get; set; }
@@ -41,7 +41,7 @@ namespace EliteJournalReader.Events
             public IReadOnlyList<Economy> StationEconomies { get; set; }
             public string StationGovernment { get; set; }
             public string StationGovernment_Localised { get; set; }
-            public double? DistFromStarLS { get; set; }
+            public double DistFromStarLS { get; set; }
             public IReadOnlyList<string> StationServices { get; set; }
             public bool Wanted { get; set; } = false;
             public bool ActiveFine { get; set; } = false;

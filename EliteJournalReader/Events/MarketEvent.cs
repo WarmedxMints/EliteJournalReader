@@ -42,7 +42,7 @@ namespace EliteJournalReader.Events
     {
         public DateTime Timestamp { get; set; }
         public string Event { get; set; }
-        public long MarketID { get; set; }
+        public ulong MarketID { get; set; }
         public string StationName { get; set; }
         public string StarSystem { get; set; }
         public IReadOnlyList<MarketItem> Items { get; set; }

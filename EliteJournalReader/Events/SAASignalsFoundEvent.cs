@@ -16,7 +16,7 @@ namespace EliteJournalReader.Events
 
         public class SAASignalsFoundEventArgs : JournalEventArgs
         {
-            public long SystemAddress { get; set; }
+            public ulong SystemAddress { get; set; }
             public string BodyName { get; set; }
             public long BodyID { get; set; }
             public IReadOnlyList<SAASignal> Signals { get; set; }

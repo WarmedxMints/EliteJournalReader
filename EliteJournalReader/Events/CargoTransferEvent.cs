@@ -11,7 +11,7 @@ namespace EliteJournalReader.Events
 
         public class CargoTransferEventArgs : JournalEventArgs
         {
-            public List<CargoTransferInfo> Transfers { get; set; }
+            public IReadOnlyList<CargoTransferInfo> Transfers { get; set; }
         }
     }
 }

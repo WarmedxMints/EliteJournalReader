@@ -39,7 +39,7 @@ namespace EliteJournalReader.Events
             public GalacticRegions Region { get; set; }
             public string Region_Localised { get; set; }
             public string System { get; set; }
-            public long SystemAddress { get; set; }
+            public ulong SystemAddress { get; set; }
             public string NearestDestination { get; set; }
             public string NearestDestination_Localised { get; set; }
             public bool IsNewEntry { get; set; } = false;

@@ -17,8 +17,9 @@ namespace EliteJournalReader.Events
             public string Species_Localised { get; set; }
             public string Variant { get; set; }
             public string Variant_Localised { get; set; }
-            public long SystemAddress { get; set; }
+            public ulong SystemAddress { get; set; }
             public long Body { get; set; }
+            public bool WasLogged { get; set; }
         }
     }
 }

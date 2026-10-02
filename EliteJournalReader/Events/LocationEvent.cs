@@ -44,14 +44,14 @@ namespace EliteJournalReader.Events
             public bool InSRV { get; set; }
             public double DistFromStarLS { get; set; }
             public string StarSystem { get; set; }
-            public long SystemAddress { get; set; }
+            public ulong SystemAddress { get; set; }
             public ThargoidWarData ThargoidWar { get; set; }
 
             [JsonConverter(typeof(SystemPositionConverter))]
             public SystemPosition StarPos { get; set; }
 
             public string Body { get; set; }
-            public long BodyID { get; set; }
+            public uint BodyID { get; set; }
 
             [JsonConverter(typeof(ExtendedStringEnumConverter<BodyType>))]
             public BodyType BodyType { get; set; }
@@ -62,14 +62,17 @@ namespace EliteJournalReader.Events
             public double? Longitude { get; set; }
 
             public string StationName { get; set; }
+            public string StationName_Localised { get; set; }
             public string StationType { get; set; }
-            public long MarketID { get; set; }
+            public ulong MarketID { get; set; }
             public Faction StationFaction { get; set; }
             public string StationGovernment { get; set; }
+            public string StationGovernment_Localised { get; set; }
             public string StationAllegiance { get; set; }
             public IReadOnlyList<string> StationServices { get; set; }
             public IReadOnlyList<Economy> StationEconomies { get; set; }
             public string StationEconomy { get; set; }
+            public string StationEconomy_Localised { get; set; }
             public Faction SystemFaction { get; set; }
             public string SystemAllegiance { get; set; }
             public string SystemEconomy { get; set; }
@@ -107,6 +110,28 @@ namespace EliteJournalReader.Events
                 clone.Conflicts = Conflicts?.Select(c => c.Clone()).ToArray();
                 clone.PowerplayConflictProgress = PowerplayConflictProgress?.Select(c => c.Copy()).ToArray();
                 return clone;
+            }
+
+            public string ControllingFactionState
+            {
+                get
+                {
+                    if (Factions.Count <= 0 || SystemFaction is null)
+                    {
+                        return "None";
+                    }
+
+                    var faction = Factions.FirstOrDefault(x => string.Equals(x.Name, SystemFaction.Name));
+
+                    if (faction is null || faction.ActiveStates.Count == 0)
+                    {
+                        return "None";
+                    }
+
+                    var states = faction.ActiveStates.Select(x => x.State.SplitCamelCase());
+
+                    return string.Join(", ", states);
+                }
             }
         }
     }

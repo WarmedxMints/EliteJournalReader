@@ -9,10 +9,10 @@ namespace EliteJournalReader.Events
 
         public class ColonisationContributionEventArgs : JournalEventArgs
         {
-            public long MarketID { get; set; }
+            public ulong MarketID { get; set; }
             public IReadOnlyList<Contribution> Contributions { get; set; }
         }
     }
 
-    public record Contribution(string Name, string Name_Localised, int Amount);
+    public record Contribution(string Name, string Name_Localised, uint Amount);
 }

@@ -11,6 +11,7 @@ namespace EliteJournalReader.Events
         public class DockingGrantedEventArgs : JournalEventArgs
         {
             public string StationName { get; set; }
+            public string StationName_Localised { get; set; }
             public string StationType { get; set; }
             public long MarketID { get; set; }
             public int LandingPad { get; set; }

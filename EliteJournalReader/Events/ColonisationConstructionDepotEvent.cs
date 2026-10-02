@@ -8,7 +8,7 @@ namespace EliteJournalReader.Events
 
         public class ColonisationConstructionDepotEventArgs : JournalEventArgs 
         { 
-            public long MarketID { get; set; }
+            public ulong MarketID { get; set; }
             public double ConstructionProgress { get; set; }
             public bool ConstructionComplete { get; set; }
             public bool ConstructionFailed { get; set; }

@@ -23,9 +23,10 @@ namespace EliteJournalReader.Events
             public string Target { get; set; }
             public string Target_Localised { get; set; }
             public string PilotName { get; set; }
+            public string PilotName_Localised { get; set; }
             public string Faction { get; set; }
 
-            public List<FactionReward> Rewards { get; set; }
+            public IReadOnlyList<FactionReward> Rewards { get; set; }
             public string VictimFaction { get; set; }
             public string VictimFaction_Localised { get; set; }
             public int Reward { get; set; }

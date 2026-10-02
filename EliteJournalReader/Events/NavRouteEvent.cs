@@ -10,7 +10,7 @@ namespace EliteJournalReader.Events
         {
             public string StarSystem { get; set; }
 
-            public long SystemAddress { get; set; }
+            public ulong SystemAddress { get; set; }
 
             [JsonConverter(typeof(SystemPositionConverter))]
             public SystemPosition StarPos { get; set; }

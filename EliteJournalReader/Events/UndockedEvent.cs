@@ -10,6 +10,7 @@ namespace EliteJournalReader.Events
         public class UndockedEventArgs : JournalEventArgs
         {
             public string StationName { get; set; }
+            public string StationName_Localised { get; set; }
             public string StationType { get; set; }
             public long MarketID { get; set; }
             public bool Taxi { get; set; }

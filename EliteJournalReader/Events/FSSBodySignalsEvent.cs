@@ -12,7 +12,7 @@ namespace EliteJournalReader.Events
 
             public int BodyID { get; set; }
 
-            public long SystemAddress { get; set; }
+            public ulong SystemAddress { get; set; }
 
             public IReadOnlyCollection<FSSSignal> Signals { get; set; }
         }

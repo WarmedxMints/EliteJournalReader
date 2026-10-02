@@ -3,6 +3,42 @@ using System.ComponentModel;
 
 namespace EliteJournalReader
 {
+    public enum CarrierCrewOperation
+    {
+        Unknown,
+        Activate,
+        Deactivate,
+        Pause,
+        Resume,
+        Replace
+    }
+
+    public enum CarrierCrewRole
+    {
+        Unknown,
+        BlackMarket,
+        Captain,
+        Refuel,
+        Repair,
+        Rearm,
+        Commodities,
+        VoucherRedemption,
+        Exploration,
+        Shipyard,
+        Outfitting,
+        CarrierFuel,
+        VistaGenomics,
+        PioneerSupplies,
+        Bartender
+    }
+
+    public enum CargoTransferDirection
+    {
+        Unknown = 0,
+        ToCarrier = 1,
+        ToShip = 2,
+        ToSrv = 3,
+    }
 
     public enum ScanType
     {
@@ -471,14 +507,23 @@ namespace EliteJournalReader
         Unknown,
         [Description("In Prepared Radius")]
         InPrepareRadius,
+        [Description("Prepared")]
         Prepared,
+        [Description("Exploited")]
         Exploited,
+        [Description("Contested")]
         Contested,
+        [Description("Controlled")]
         Controlled,
+        [Description("Turmoil")]
         Turmoil,
+        [Description("Home System")]
         HomeSystem,
+        [Description("StrongHold")]
         Stronghold,
+        [Description("Fortified")]
         Fortified,
+        [Description("Unoccupied")]
         Unoccupied
     }
 
@@ -577,7 +622,10 @@ namespace EliteJournalReader
         Offences,
         Distance,
         ActiveFighter,
-        NoReason
+        NoReason,
+        RestrictedAccess,
+        JumpImminent,
+        DockingUnavliable
     }
 
     public enum ModuleAttribute
@@ -717,7 +765,9 @@ namespace EliteJournalReader
         DSS_AngleMult,
         DSS_RateMult,
         DSS_PatchRadius,
-        GuardianModuleResistance
+        GuardianModuleResistance,
+        Thermic,
+        Explosive
     }
 
     public enum ReputationStatus
@@ -1024,6 +1074,7 @@ namespace EliteJournalReader
         PowerplayMerits = 280,
         PowerplayRank = 281,
         RequestPowerMicroResources = 282,
+        GameModeChange = 283,
         // removed events
         TransferMicroResources = 10000,
         BackPack = 10001,

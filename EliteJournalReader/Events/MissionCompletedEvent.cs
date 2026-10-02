@@ -63,7 +63,7 @@ namespace EliteJournalReader.Events
 
             public struct FactionInfluenceEffect
             {
-                public long SystemAddress;
+                public ulong SystemAddress;
                 public string Trend;
                 public string Influence;
             }
